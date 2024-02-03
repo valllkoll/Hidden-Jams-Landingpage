@@ -118,15 +118,16 @@ body {
 .blur {
     font-size: 15vh;
     color: transparent;
-    animation: sharpEffect 1.5s forwards ease-in;
 }
 
-@keyframes sharpEffect {
+@keyframes fadeInBlur {
     from {
+        rotateY(50deg);
         font-size: 9vh;
-        text-shadow: 0 0 200px #333; /* Start with a more pronounced blur */
+        text-shadow: 0 0 200px #f5f5f5; /* Start with a more pronounced blur */
     }
     to {
+        rotateY(0deg);
         font-size: 15vh;
         text-shadow: 0 0 0px #333; /* Start with a more pronounced blur */
     }
@@ -142,7 +143,6 @@ body {
     position: absolute;
     font-family: 'Montserrat', sans-serif;
     font-weight: 100;
-    animation: slideRight 2.2s forwards ease-in-out 1.5s;
     color: transparent;
 }
 
@@ -156,16 +156,6 @@ body {
         font-weight: lighter;
         color: #333;
         left: 68%;
-    }
-}
-
-
-@keyframes slideLeft {
-    from {
-        left: 0;
-    }
-    to {
-        left: 70%; /* Move the word to the right edge of its container */
     }
 }
 
