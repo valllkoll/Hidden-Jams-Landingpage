@@ -1,13 +1,7 @@
-/* Your CSS styles go here */
-/* body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
-    text-align: center;
-} */
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background-color: #f5f5f5; /* Set a background color for the entire page */
     color: #333; /* Set a default text color */
 }
@@ -21,7 +15,7 @@ body {
 header {
     color: #333;
     text-align: center;
-    padding: 50px 0; 
+    padding: 50px 0;
 }
 
 .title-image {
@@ -53,7 +47,6 @@ h1 {
     text-align: center;
     padding: 50px 0; /* Adjust padding as needed */
 }
-
 
 
 footer {
@@ -116,95 +109,108 @@ body {
     scroll-behavior: smooth;
 }
 
-/* 
-.landing {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: url('../img/HiddenJams-Sirintip_171.jpg') center/cover no-repeat fixed; 
+
+.title-text {
+    color: #333;
+    font-size: 15vh;
 }
 
-.about {
-    width: 50%;
-    max-width: 600px;
-    margin: 0 auto;
-    margin-top: 10vh;
-    margin-bottom: 10vh; 
+.blur {
+    font-size: 15vh;
+    color: transparent;
 }
 
-h1 {
-    position: relative;
-    z-index: 1;
-    color: black;
-    margin: 0;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-} */
-
-/* .container:hover #hiddenH1 {
-    opacity: 1;
-} */
-
-
-
-
-
-
-
-.parallax-container {
-    position: relative;
-	min-height: 100vh;
-    perspective: .2px;
-	transform-style: preserve-3d;
-	background-color: #242321;
-	overflow-x: hidden;
-    overflow-y: auto;
-	display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+@keyframes fadeInBlur {
+    from {
+        rotateY(50deg);
+        font-size: 9vh;
+        text-shadow: 0 0 200px #f5f5f5; /* Start with a more pronounced blur */
+    }
+    to {
+        rotateY(0deg);
+        font-size: 15vh;
+        text-shadow: 0 0 0px #333; /* Start with a more pronounced blur */
+    }
 }
 
-.parallax-layer {
+#hidden-text {
     position: absolute;
-    width: 100%;
-    height: auto;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
+    background-color: #f5f5f5;
+    z-index: 999;
 }
 
-.parallax-layer > img {
-  width: 100%;
+#jams-text {
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    color: transparent;
+}
+
+@keyframes slideRight {
+    from {
+        font-weight: lighter;
+        color: #333;
+        left: 40%;
+    }
+    to {
+        font-weight: lighter;
+        color: #333;
+        left: 68%;
+    }
 }
 
 .title {
     color: #333;
-    height:200 vh;
+    height: 200vh;
     z-index: 3;
     top: 180vh;
     transform: translateZ(-1px) scale(3.5);
     background-color: black;
-    justify-content: top;
 }
 
-.background-layer {
-	z-index: 0;
-	top: 403px;
-  transform: translateZ(-4.5px) scale(5.5);
-}
 
-.middle-layer {
-    z-index: 1;
-    top: 289px;
-  transform: translateZ(-3.5px) scale(4.5);
-}
+/*.parallax-container {*/
+/*    position: relative;*/
+/*    min-height: 100vh;*/
+/*    perspective: .2px;*/
+/*    transform-style: preserve-3d;*/
+/*    background-color: #242321;*/
+/*    overflow-x: hidden;*/
+/*    overflow-y: auto;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*}*/
 
-.foreground-layer {
-    z-index: 2;
-    top: 49px;
-  transform: translateZ(-2.5px) scale(3.5);
-}
+/*.parallax-layer {*/
+/*    position: absolute;*/
+/*    width: 100%;*/
+/*    height: auto;*/
+/*    background-attachment: fixed;*/
+/*    background-position: center;*/
+/*    background-size: cover;*/
+/*}*/
+
+/*.parallax-layer > img {*/
+/*    width: 100%;*/
+/*}*/
+
+
+/*.background-layer {*/
+/*    z-index: 0;*/
+/*    top: 403px;*/
+/*    transform: translateZ(-4.5px) scale(5.5);*/
+/*}*/
+
+/*.middle-layer {*/
+/*    z-index: 1;*/
+/*    top: 289px;*/
+/*    transform: translateZ(-3.5px) scale(4.5);*/
+/*}*/
+
+/*.foreground-layer {*/
+/*    z-index: 2;*/
+/*    top: 49px;*/
+/*    transform: translateZ(-2.5px) scale(3.5);*/
+/*}*/
