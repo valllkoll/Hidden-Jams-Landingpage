@@ -111,6 +111,7 @@ h1 {
 
 .navbar .separator {
     width: 70%;
+    border-bottom: 1px solid #f5f5f5;
 }
 
 .navbar a {
@@ -118,10 +119,15 @@ h1 {
     text-decoration: none;
     margin: 0 15px;
     font-size: 18px;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.navbar-end {
+    padding-right: 10px;
 }
 
 .navbar a:hover {
-    border-bottom: 1px solid #333;
+    border-color: #333;
 }
 
 @keyframes fadeIn {
@@ -244,5 +250,11 @@ h1 {
         letter-spacing: 30px;
         text-align: right;
         padding-left: 11px;
+    }
+}
+
+@media (max-width: 500px) {
+    .navbar a {
+        font-size: 14px;
     }
 }
