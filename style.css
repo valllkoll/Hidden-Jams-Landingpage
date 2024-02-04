@@ -97,17 +97,51 @@ h1 {
     z-index: 900;
 }
 
+.navbar {
+    display: flex;
+    background-color: #f5f5f5;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #333;
+    opacity: 0;
+}
+
+.navbar .separator {
+    width: 70%;
+}
+
+.navbar a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    border-bottom: 1px solid #333;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
+    }
+}
+
 /*animations*/
 @keyframes fadeInBlur {
     from {
         z-index: 901;
-    rotateY(50deg);
         font-size: 9vh;
         text-shadow: 0 0 200px #f5f5f5;
     }
     to {
         z-index: 901;
-    rotateY(0deg);
         font-size: 15vh;
         text-shadow: 0 0 0px #333;
     }

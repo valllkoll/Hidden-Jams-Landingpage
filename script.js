@@ -59,6 +59,7 @@ function addAnimations(orientation) {
     addHiddenSlideAnimation(hiddenText, orientation);
     addJamsSlideAnimation(jamsText, orientation);
     scheduleBottomCoverAnimation(bottomImageCover, bottomImage);
+    scheduleNavbarAppearance();
 }
 
 function addHiddenSlideAnimation(hiddenText, orientation) {
@@ -117,6 +118,19 @@ function scheduleBottomCoverAnimation(bottomImageCover, bottomImage) {
     setTimeout(() =>
             addBottomCoverAnimation(bottomImageCover, bottomImage),
         LOGO_ANIMATION_PARAMETERS.IMAGE_COVER_DELAY * 1000)
+}
+
+function scheduleNavbarAppearance() {
+    setTimeout(() =>
+            makeNavbarVisible(),
+        LOGO_ANIMATION_PARAMETERS.NAVBAR_DELAY * 1000)
+}
+
+function makeNavbarVisible() {
+    let navbar = document.querySelector('.navbar');
+
+    navbar.style.display = 'flex';
+    navbar.style.animation = 'fadeIn 2s forwards';
 }
 
 function addBottomCoverAnimation(bottomImageCover, bottomImage) {
