@@ -10,9 +10,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 let fireLandscapeAnimation = function () {
-    let video = document.querySelector("#landingpage-video");
+    const videoElement = document.getElementById('landingpage-video');
 
-    let videoDuration = video.duration;
+    let videoDuration = videoElement.duration;
     let timeToPlay = (videoDuration - 2.1) * 1000;
     console.log(timeToPlay);
 
@@ -78,22 +78,38 @@ function addBlurAnimation(blurElements) {
     console.log("HIDDEN ANIM" + blurElements.style.animation);
 }
 
-function addJamsSlideAnimation(jamsText) {
+function addJamsSlideAnimation(jamsText, mode) {
     let params = LOGO_ANIMATION_PARAMETERS;
+    let animationTag;
+
+    if (mode === mode.LANDSCAPE) {
+        animationTag = params.JAMS_CSS_ANIMATION_TAG;
+    } else {
+        animationTag = "slideDown";
+    }
 
     jamsText.style.animation =
-        params.JAMS_CSS_ANIMATION_TAG + ' ' +
+        animationTag + ' ' +
         params.JAMS_ANIMATION_LENGTH + ' ' +
         'forwards' + ' ' +
         params.JAMS_EASING_TYPE + ' ' +
         params.JAMS_ANIMATION_DELAY;
+
+    console.log(jamsText.style.animation)
 }
 
-function addHiddenSlideAnimation(hiddenText) {
+function addHiddenSlideAnimation(hiddenText, mode) {
     let params = LOGO_ANIMATION_PARAMETERS;
+    let animationTag;
+
+    if (mode === mode.LANDSCAPE) {
+        animationTag = params.HIDDEN_SLIDE_CSS_ANIMATION_TAG;
+    } else {
+        animationTag = "slideUp";
+    }
 
     hiddenText.style.animation += ', ' +
-        params.HIDDEN_SLIDE_CSS_ANIMATION_TAG + ' ' +
+        animationTag + ' ' +
         params.JAMS_ANIMATION_LENGTH + ' ' +
         'forwards' + ' ' +
         params.JAMS_EASING_TYPE + ' ' +
@@ -103,10 +119,56 @@ function addHiddenSlideAnimation(hiddenText) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const video = document.getElementById('landingpage-video');
+    const videoElement = document.getElementById('landingpage-video');
+    const videoSourceElement = document.getElementById('landingpage-source');
+    const landscapeMode = window.innerWidth > window.innerHeight;
 
-    setTimeout(() => fireLandscapeAnimation(), 1000);
+    // Change source on a certain condition
+    if (landscapeMode) {
+        videoSourceElement.src = 'media/landingpage-intro-2.mp4';
+    } else {
+        videoSourceElement.src = 'media/landingpage-intro-hochkant.mp4';
+    }
+
+    // Reload the video to apply the changes
+    videoElement.load();
+
+    if (landscapeMode) {
+        setTimeout(() => fireLandscapeAnimation(), 1000);
+    } else {
+        setTimeout(() => firePortraitAnimation(), 1000)
+    }
 });
+
+function addPortraitAnimations() {
+    let jamsText = document.querySelector("#jams-text");
+    let hiddenText = document.querySelector("#hidden-text");
+    let bottomImageCover = document.querySelector(".cover");
+    let bottomImage = document.querySelector(".image");
+
+    if (hiddenText) {
+        addBlurAnimation(hiddenText, mode.PORTRAIT);
+    }
+
+    if (hiddenText) {
+        addHiddenSlideAnimation(hiddenText, mode.PORTRAIT);
+    }
+
+    if (jamsText) {
+        addJamsSlideAnimation(jamsText, mode.PORTRAIT);
+    }
+
+    if (bottomImageCover && bottomImage) {
+        setTimeout(() =>
+                addBottomCoverAnimation(bottomImageCover, bottomImage, mode.PORTRAIT),
+            1500)
+    }
+}
+
+const mode = {
+    PORTRAIT: "Portrait",
+    LANDSCAPE: "Portrait"
+}
 
 let firePortraitAnimation = function () {
     let video = document.querySelector("#landingpage-video");
@@ -115,7 +177,7 @@ let firePortraitAnimation = function () {
     let timeToPlay = (videoDuration - 2.1) * 1000;
     console.log(timeToPlay);
 
-    setTimeout(() => addAnimations(),
+    setTimeout(() => addPortraitAnimations(),
         timeToPlay);
 }
 

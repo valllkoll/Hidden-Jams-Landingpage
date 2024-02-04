@@ -6,6 +6,7 @@ body {
     scrollbar-color: transparent transparent;
     margin: 0;
     padding: 0;
+    overflow: auto;
 }
 
 .title-image {
@@ -28,9 +29,8 @@ body {
 }
 
 .container {
-    height: 101vh;
-    width: 105vw;
-    margin: -1%;
+    height: 100vh;
+    width: 100vw;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -101,6 +101,26 @@ h1 {
     }
 }
 
+@keyframes slideDown {
+    from {
+        font-weight: lighter;
+    }
+    to {
+        transform: translateY(60%);
+        font-weight: lighter;
+        color: #333;
+    }
+}
+
+@keyframes slideUp {
+    from {
+    }
+    to {
+        transform: translateY(-33%);
+        color: #333;
+    }
+}
+
 
 /*Image part*/
 .image-container {
@@ -138,8 +158,57 @@ h1 {
     width: 100%;
 }
 
-@media (max-width: 767px) {
+@media (orientation: portrait) {
     .container {
         flex-direction: column;
+        object-fit: cover;
+    }
+
+    #landingpage-video {
+        height: 80%;
+        width: auto;
+    }
+
+    .title-text {
+        font-size: 8vh;
+    }
+
+    .blur {
+        font-size: 8vh;
+    }
+
+    #hidden-text {
+        font-size: 8vh;
+    }
+
+    #jams-text {
+        font-size: 8vh;
+        letter-spacing: 30px;
+        text-align: right;
+        padding-left: 13px;
+    }
+
+    @keyframes fadeInBlur {
+        from {
+            z-index: 901;
+        rotateY(50deg);
+            font-size: 5vh;
+            text-shadow: 0 0 200px #f5f5f5;
+        }
+        to {
+            z-index: 901;
+        rotateY(0deg);
+            font-size: 9vh;
+            text-shadow: 0 0 0px #333;
+        }
+    }
+}
+
+@media (orientation: portrait) and (min-width: 700px) {
+    #jams-text {
+        font-size: 8vh;
+        letter-spacing: 30px;
+        text-align: right;
+        padding-left: 11px;
     }
 }
