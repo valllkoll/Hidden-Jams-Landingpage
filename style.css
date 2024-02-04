@@ -110,7 +110,12 @@ h1 {
 }
 
 .navbar .separator {
-    width: 70%;
+    flex-grow: 1;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.navbar .end-separator {
+    width: 3vw;
     border-bottom: 1px solid #f5f5f5;
 }
 
@@ -120,10 +125,6 @@ h1 {
     margin: 0 15px;
     font-size: 18px;
     border-bottom: 1px solid #f5f5f5;
-}
-
-.navbar-end {
-    padding-right: 10px;
 }
 
 .navbar a:hover {
