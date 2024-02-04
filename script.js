@@ -14,7 +14,7 @@ let fireLandscapeAnimation = function () {
 
     let videoDuration = videoElement.duration;
     let timeToPlay = (videoDuration - 2.1) * 1000;
-    console.log(timeToPlay);
+    console.log("LANDSCAPE");
 
     setTimeout(() => addAnimations(),
         timeToPlay);
@@ -24,18 +24,18 @@ function addAnimations() {
     let jamsText = document.querySelector("#jams-text");
     let hiddenText = document.querySelector("#hidden-text");
     let bottomImageCover = document.querySelector(".cover");
-    let bottomImage = document.querySelector(".image");
+    let bottomImage = document.querySelector(".image-container");
 
     if (hiddenText) {
         addBlurAnimation(hiddenText);
     }
 
     if (hiddenText) {
-        addHiddenSlideAnimation(hiddenText);
+        addHiddenSlideAnimation(hiddenText, MODE.LANDSCAPE);
     }
 
     if (jamsText) {
-        addJamsSlideAnimation(jamsText);
+        addJamsSlideAnimation(jamsText, MODE.LANDSCAPE);
     }
 
     if (bottomImageCover && bottomImage) {
@@ -72,18 +72,16 @@ function addBlurAnimation(blurElements) {
 
     setTimeout(() => {
         hiddenText.style.backgroundColor = "#f5f5f5";
-        console.log("SET BACKGROUND");
     }, 1500);
-
-    console.log("HIDDEN ANIM" + blurElements.style.animation);
 }
 
 function addJamsSlideAnimation(jamsText, mode) {
     let params = LOGO_ANIMATION_PARAMETERS;
     let animationTag;
 
-    if (mode === mode.LANDSCAPE) {
+    if (mode === MODE.LANDSCAPE) {
         animationTag = params.JAMS_CSS_ANIMATION_TAG;
+
     } else {
         animationTag = "slideDown";
     }
@@ -95,18 +93,25 @@ function addJamsSlideAnimation(jamsText, mode) {
         params.JAMS_EASING_TYPE + ' ' +
         params.JAMS_ANIMATION_DELAY;
 
-    console.log(jamsText.style.animation)
+}
+
+const MODE = {
+    PORTRAIT: "Portrait",
+    LANDSCAPE: "Landscape"
 }
 
 function addHiddenSlideAnimation(hiddenText, mode) {
     let params = LOGO_ANIMATION_PARAMETERS;
     let animationTag;
+    console.log("MODE is " + mode);
 
-    if (mode === mode.LANDSCAPE) {
+    if (mode === MODE.LANDSCAPE) {
         animationTag = params.HIDDEN_SLIDE_CSS_ANIMATION_TAG;
     } else {
         animationTag = "slideUp";
     }
+
+    console.log(animationTag);
 
     hiddenText.style.animation += ', ' +
         animationTag + ' ' +
@@ -147,27 +152,22 @@ function addPortraitAnimations() {
     let bottomImage = document.querySelector(".image");
 
     if (hiddenText) {
-        addBlurAnimation(hiddenText, mode.PORTRAIT);
+        addBlurAnimation(hiddenText, MODE.PORTRAIT);
     }
 
     if (hiddenText) {
-        addHiddenSlideAnimation(hiddenText, mode.PORTRAIT);
+        addHiddenSlideAnimation(hiddenText, MODE.PORTRAIT);
     }
 
     if (jamsText) {
-        addJamsSlideAnimation(jamsText, mode.PORTRAIT);
+        addJamsSlideAnimation(jamsText, MODE.PORTRAIT);
     }
 
     if (bottomImageCover && bottomImage) {
         setTimeout(() =>
-                addBottomCoverAnimation(bottomImageCover, bottomImage, mode.PORTRAIT),
+                addBottomCoverAnimation(bottomImageCover, bottomImage, MODE.PORTRAIT),
             1500)
     }
-}
-
-const mode = {
-    PORTRAIT: "Portrait",
-    LANDSCAPE: "Portrait"
 }
 
 let firePortraitAnimation = function () {

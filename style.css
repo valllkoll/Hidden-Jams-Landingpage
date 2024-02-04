@@ -9,6 +9,11 @@ body {
     overflow: auto;
 }
 
+.page-content {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .title-image {
     max-height: 60%;
     width: auto;
@@ -30,11 +35,41 @@ body {
 
 .container {
     height: 100vh;
-    width: 100vw;
-    position: absolute;
+    width: 100%;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 2px solid blue;
+}
+
+/*Image part*/
+.image-container {
+    width: 100%;
+    margin-top: -30vh;
+    position: relative;
+    border: 2px solid green;
+    background-image: url('media/HiddenJams-Sirintip_171.jpg'); /* Replace with the path to your image */
+    background-size: cover; /* Adjust to cover the container */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent image repetition */
+    display: none;
+}
+
+.cover {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    top: 70vh;
+    height: 100%;
+    background-color: #f5f5f5;
+    transition: transform 0.5s ease-in-out;
+    z-index: -1;
+    transform: translateX(0);
+}
+
+.info-segment {
+    border: 2px solid red;
 }
 
 h1 {
@@ -119,33 +154,6 @@ h1 {
         transform: translateY(-33%);
         color: #333;
     }
-}
-
-
-/*Image part*/
-.image-container {
-    width: 100vw;
-}
-
-.image {
-    width: 100%;
-    top: 70vh;
-    position: absolute;
-    overflow: hidden;
-    cursor: pointer;
-    display: none;
-}
-
-.cover {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    top: 70vh;
-    height: 100%;
-    background-color: #f5f5f5;
-    transition: transform 0.5s ease-in-out;
-    z-index: -1;
-    transform: translateX(0);
 }
 
 @keyframes coverSlide {
