@@ -10,6 +10,8 @@ body {
 }
 
 .page-content {
+    max-width: 100vw;
+    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
 }
@@ -31,16 +33,16 @@ body {
 
 #landingpage-video {
     width: 100%;
+    height: auto;
 }
 
 .container {
-    height: 100vh;
     width: 100%;
+    height: 100vh;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid blue;
 }
 
 /*Image part*/
@@ -48,7 +50,6 @@ body {
     width: 100%;
     margin-top: -30vh;
     position: relative;
-    border: 2px solid green;
     background-image: url('media/HiddenJams-Sirintip_171.jpg'); /* Replace with the path to your image */
     background-size: cover; /* Adjust to cover the container */
     background-position: center; /* Center the background image */
@@ -66,10 +67,6 @@ body {
     transition: transform 0.5s ease-in-out;
     z-index: -1;
     transform: translateX(0);
-}
-
-.info-segment {
-    border: 2px solid red;
 }
 
 h1 {
@@ -167,14 +164,9 @@ h1 {
 }
 
 @media (orientation: portrait) {
-    .container {
-        flex-direction: column;
-        object-fit: cover;
-    }
-
     #landingpage-video {
-        height: 80%;
-        width: auto;
+        min-height: 80%;
+        width: 100%;
     }
 
     .title-text {

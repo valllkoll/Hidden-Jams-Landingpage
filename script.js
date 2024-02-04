@@ -9,18 +9,18 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-let fireLandscapeAnimation = function () {
+let fireAnimation = function (mode) {
     const videoElement = document.getElementById('landingpage-video');
 
     let videoDuration = videoElement.duration;
     let timeToPlay = (videoDuration - 2.1) * 1000;
     console.log("LANDSCAPE");
 
-    setTimeout(() => addAnimations(),
+    setTimeout(() => addAnimations(mode),
         timeToPlay);
 }
 
-function addAnimations() {
+function addAnimations(mode) {
     let jamsText = document.querySelector("#jams-text");
     let hiddenText = document.querySelector("#hidden-text");
     let bottomImageCover = document.querySelector(".cover");
@@ -31,11 +31,11 @@ function addAnimations() {
     }
 
     if (hiddenText) {
-        addHiddenSlideAnimation(hiddenText, MODE.LANDSCAPE);
+        addHiddenSlideAnimation(hiddenText, mode);
     }
 
     if (jamsText) {
-        addJamsSlideAnimation(jamsText, MODE.LANDSCAPE);
+        addJamsSlideAnimation(jamsText, mode);
     }
 
     if (bottomImageCover && bottomImage) {
@@ -49,7 +49,9 @@ function addAnimations() {
 function addBottomCoverAnimation(bottomImageCover, bottomImage) {
     bottomImageCover.style.zIndex = "5";
     bottomImageCover.style.animation = "coverSlide 1s forwards 1s";
-    bottomImage.style.display = "block";
+    bottomImage.style.display = "flex";
+
+    console.log("bottom to flex");
 
     let video = document.querySelector("#landingpage-video");
 
@@ -139,9 +141,9 @@ document.addEventListener('DOMContentLoaded', function() {
     videoElement.load();
 
     if (landscapeMode) {
-        setTimeout(() => fireLandscapeAnimation(), 1000);
+        setTimeout(() => fireAnimation(MODE.LANDSCAPE), 1000);
     } else {
-        setTimeout(() => firePortraitAnimation(), 1000)
+        setTimeout(() => fireAnimation(MODE.PORTRAIT), 1000)
     }
 });
 
@@ -149,7 +151,7 @@ function addPortraitAnimations() {
     let jamsText = document.querySelector("#jams-text");
     let hiddenText = document.querySelector("#hidden-text");
     let bottomImageCover = document.querySelector(".cover");
-    let bottomImage = document.querySelector(".image");
+    let bottomImage = document.querySelector(".image-container");
 
     if (hiddenText) {
         addBlurAnimation(hiddenText, MODE.PORTRAIT);
@@ -165,7 +167,7 @@ function addPortraitAnimations() {
 
     if (bottomImageCover && bottomImage) {
         setTimeout(() =>
-                addBottomCoverAnimation(bottomImageCover, bottomImage, MODE.PORTRAIT),
+                addBottomCoverAnimation(bottomImageCover, bottomImage),
             1500)
     }
 }
