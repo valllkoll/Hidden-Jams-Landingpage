@@ -1,7 +1,7 @@
 body {
     font-family: 'Montserrat', sans-serif;
     background-color: #f5f5f5;
-    color: #333;
+    color: #222;
     box-sizing: border-box;
     scrollbar-color: transparent transparent;
     margin: 0;
@@ -40,15 +40,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid blue;
 }
 
 /*Image part*/
 .image-container {
     width: 100%;
+    height: 50vh;
     margin-top: -30vh;
     position: relative;
-    border: 2px solid green;
     background-image: url('media/HiddenJams-Sirintip_171.jpg'); /* Replace with the path to your image */
     background-size: cover; /* Adjust to cover the container */
     background-position: center; /* Center the background image */
@@ -68,9 +67,65 @@ body {
     transform: translateX(0);
 }
 
+
+
 .info-segment {
-    border: 2px solid red;
+    background-color: #222;
+    display: flex;
+
+    width: 100%;
+    align-items: center;
 }
+
+.info-wrapper {
+    color: #f5f5f5;
+    border: solid red;
+    text-align: left;
+    max-width: 600px;
+    align-self: flex-end;
+    padding: 20px;
+    position: relative;
+    margin: 5vh auto;
+  }
+
+  .big-font {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+  }
+
+  .small-font {
+    font-size: 1em;
+  }
+
+  .line-wrapper {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background-color: #f5f5f5;
+    transition: width 0.5s ease;
+  }
+
+  /* Media query for responsiveness */
+  @media (max-width: 768px) {
+    .info-segment {
+      padding: 10px;
+    }
+
+    .big-font {
+      font-size: 1.5em;
+    }
+
+    .small-font {
+      font-size: 0.9em;
+    }
+  }
+
+  /* Scroll-triggered animation for the line */
+  .scroll-trigger .line {
+    width: 100%;
+  }
+
+
 
 h1 {
     font-size: 2.5em;
@@ -104,13 +159,11 @@ h1 {
 @keyframes fadeInBlur {
     from {
         z-index: 901;
-    rotateY(50deg);
         font-size: 9vh;
         text-shadow: 0 0 200px #f5f5f5;
     }
     to {
         z-index: 901;
-    rotateY(0deg);
         font-size: 15vh;
         text-shadow: 0 0 0px #333;
     }
@@ -199,13 +252,11 @@ h1 {
     @keyframes fadeInBlur {
         from {
             z-index: 901;
-        rotateY(50deg);
             font-size: 5vh;
             text-shadow: 0 0 200px #f5f5f5;
         }
         to {
             z-index: 901;
-        rotateY(0deg);
             font-size: 9vh;
             text-shadow: 0 0 0px #333;
         }
