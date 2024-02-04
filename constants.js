@@ -1,0 +1,23 @@
+export const LOGO_ANIMATION_PARAMETERS = {
+
+    BLUR_ANIMATION_TAG: "fadeInBlur",
+    BLUR_ANIMATION_LENGTH: 1.5,
+    BLUR_EASING_TYPE: "ease-in",
+
+    JAMS_LANDSCAPE_ANIMATION_TAG: "slideRight",
+    JAMS_PORTRAIT_ANIMATION_TAG: "slideDown",
+    JAMS_ANIMATION_DELAY: 1.7,
+    JAMS_ANIMATION_LENGTH: 1.7,
+    JAMS_EASING_TYPE: "ease-in-out",
+
+    HIDDEN_LANDSCAPE_ANIMATION_TAG: 'slideLeft',
+    HIDDEN_PORTRAIT_ANIMATION_TAG: 'slideUp',
+
+    IMAGE_COVER_DELAY: 1.5,
+    NAVBAR_DELAY: 2.5
+};
+
+export const ORIENTATION = {
+    PORTRAIT: "Portrait",
+    LANDSCAPE: "Landscape"
+}

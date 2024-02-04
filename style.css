@@ -10,6 +10,8 @@ body {
 }
 
 .page-content {
+    max-width: 100vw;
+    box-sizing: border-box;
     display: flex;
     flex-wrap: wrap;
 }
@@ -31,11 +33,12 @@ body {
 
 #landingpage-video {
     width: 100%;
+    height: auto;
 }
 
 .container {
-    height: 100vh;
     width: 100%;
+    height: 100vh;
     position: relative;
     display: flex;
     justify-content: center;
@@ -144,6 +147,42 @@ h1 {
     z-index: 900;
 }
 
+.navbar {
+    display: flex;
+    background-color: #f5f5f5;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #333;
+    opacity: 0;
+}
+
+.navbar .separator {
+    width: 70%;
+}
+
+.navbar a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+}
+
+.navbar a:hover {
+    border-bottom: 1px solid #333;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 100;
+    }
+}
+
 /* Scroll reveal  */
 .hidden-element {
     opacity: 0;
@@ -222,14 +261,9 @@ h1 {
 }
 
 @media (orientation: portrait) {
-    .container {
-        flex-direction: column;
-        object-fit: cover;
-    }
-
     #landingpage-video {
-        height: 80%;
-        width: auto;
+        min-height: 80%;
+        width: 100%;
     }
 
     .title-text {
