@@ -3,6 +3,9 @@ body {
     background-color: #f5f5f5;
     color: #333;
     box-sizing: border-box;
+    scrollbar-color: transparent transparent;
+    margin: 0;
+    padding: 0;
 }
 
 .title-image {
@@ -11,13 +14,13 @@ body {
     border-radius: 10px; /* Add a border-radius for rounded corners */
 }
 
-.video-container {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    object-fit: cover;
-    justify-content: center;
-    align-items: center;
+/* For WebKit (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 0; /* Width of the vertical scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: transparent; /* Color of the thumb */
 }
 
 #landingpage-video {
@@ -25,8 +28,9 @@ body {
 }
 
 .container {
-    height: 100vh;
-    width: 100vw;
+    height: 101vh;
+    width: 105vw;
+    margin: -1%;
     position: absolute;
     display: flex;
     justify-content: center;
