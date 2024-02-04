@@ -4,6 +4,11 @@ import {ORIENTATION} from "./constants.js";
 // Initializes animation once document is loaded
 document.addEventListener('DOMContentLoaded', initialiseAnimation);
 
+//Initializes Scroll Handler
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('resize', handleScroll);
+document.addEventListener('DOMContentLoaded', handleScroll);
+
 function initialiseAnimation() {
     let orientation = getScreenOrientation();
 
@@ -138,4 +143,27 @@ function addBottomCoverAnimation(bottomImageCover, bottomImage) {
     bottomImageCover.style.animation = "coverSlide 1s forwards 1s";
     bottomImage.style.display = "flex";
 }
+
+
+
+
+// SCROLL REVEAL
+
+function toggleVisibility(elementId, threshold) {
+    var element = document.getElementById(elementId);
+    var rect = element.getBoundingClientRect();
+
+    if (rect.top < window.innerHeight - threshold) {
+      element.classList.add('visible-element');
+      element.classList.remove('hidden-element');
+    } 
+}
+
+function handleScroll() {
+    toggleVisibility('element1', 200);
+    toggleVisibility('element2', 250);
+    // toggleVisibility('element3', 200);
+    // toggleVisibility('element4', 250);
+}
+
 
