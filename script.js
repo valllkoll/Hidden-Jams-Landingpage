@@ -196,3 +196,27 @@ let LOGO_ANIMATION_PARAMETERS = {
     HIDDEN_SLIDE_CSS_ANIMATION_TAG: 'slideLeft'
 
 };
+
+
+// SCROLL REVEAL
+
+function toggleVisibility(elementId, threshold) {
+    var element = document.getElementById(elementId);
+    var rect = element.getBoundingClientRect();
+
+    if (rect.top < window.innerHeight - threshold) {
+      element.classList.add('visible-element');
+      element.classList.remove('hidden-element');
+    } 
+  }
+
+  function handleScroll() {
+    toggleVisibility('element1', 200);
+    toggleVisibility('element2', 250);
+    // toggleVisibility('element3', 200);
+    // toggleVisibility('element4', 250);
+  }
+
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('resize', handleScroll);
+  document.addEventListener('DOMContentLoaded', handleScroll);

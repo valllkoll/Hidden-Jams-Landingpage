@@ -144,6 +144,19 @@ h1 {
     z-index: 900;
 }
 
+/* Scroll reveal  */
+.hidden-element {
+    opacity: 0;
+    transition: opacity 1.5s ease;
+    margin-bottom: 20px;
+  }
+
+  .visible-element {
+    opacity: 1;
+    transition: opacity 1.5s ease;
+  }
+
+
 /*animations*/
 @keyframes fadeInBlur {
     from {
