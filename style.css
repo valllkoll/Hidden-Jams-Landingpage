@@ -47,25 +47,10 @@ h1 {
     color: transparent;
 }
 
-@keyframes fadeInBlur {
-    from {
-        z-index: 999;
-        rotateY(50deg);
-        font-size: 9vh;
-        text-shadow: 0 0 200px #f5f5f5; /* Start with a more pronounced blur */
-    }
-    to {
-        z-index: 999;
-        rotateY(0deg);
-        font-size: 15vh;
-        text-shadow: 0 0 0px #333; /* Start with a more pronounced blur */
-    }
-}
-
 #hidden-text {
     position: absolute;
-    /*background-color: #f5f5f5;*/
     z-index: -1;
+    padding-right: 2%;
 }
 
 #jams-text {
@@ -76,15 +61,39 @@ h1 {
     z-index: 900;
 }
 
+/*animations*/
+@keyframes fadeInBlur {
+    from {
+        z-index: 901;
+    rotateY(50deg);
+        font-size: 9vh;
+        text-shadow: 0 0 200px #f5f5f5;
+    }
+    to {
+        z-index: 901;
+    rotateY(0deg);
+        font-size: 15vh;
+        text-shadow: 0 0 0px #333;
+    }
+}
+
 @keyframes slideRight {
     from {
         font-weight: lighter;
-        left: 40%;
     }
     to {
+        transform: translateX(65%);
         font-weight: lighter;
         color: #333;
-        left: 67.5%;
+    }
+}
+
+@keyframes slideLeft {
+    from {
+    }
+    to {
+        transform: translateX(-40%);
+        color: #333;
     }
 }
 
@@ -117,11 +126,16 @@ h1 {
 
 @keyframes coverSlide {
     to {
-        transform: translateX(-100%); /* Slide the cover to reveal the image */
+        transform: translateX(-100%);
     }
 }
 
 .slide-in-photo img {
-    width: 100%; /* Make the image fill its container */
+    width: 100%;
 }
 
+@media (max-width: 767px) {
+    .container {
+        flex-direction: column;
+    }
+}

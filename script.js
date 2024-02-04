@@ -9,7 +9,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-let fireAnimation = function () {
+let fireLandscapeAnimation = function () {
     let video = document.querySelector("#landingpage-video");
 
     let videoDuration = video.duration;
@@ -21,13 +21,17 @@ let fireAnimation = function () {
 }
 
 function addAnimations() {
-    let blurElements = document.querySelector(".blur");
     let jamsText = document.querySelector("#jams-text");
+    let hiddenText = document.querySelector("#hidden-text");
     let bottomImageCover = document.querySelector(".cover");
     let bottomImage = document.querySelector(".image");
 
-    if (blurElements) {
-        addBlurAnimation(blurElements);
+    if (hiddenText) {
+        addBlurAnimation(hiddenText);
+    }
+
+    if (hiddenText) {
+        addHiddenSlideAnimation(hiddenText);
     }
 
     if (jamsText) {
@@ -44,7 +48,7 @@ function addAnimations() {
 
 function addBottomCoverAnimation(bottomImageCover, bottomImage) {
     bottomImageCover.style.zIndex = "5";
-    bottomImageCover.style.animation = "coverSlide 1s forwards .5s";
+    bottomImageCover.style.animation = "coverSlide 1s forwards 1s";
     bottomImage.style.display = "block";
 
     let video = document.querySelector("#landingpage-video");
@@ -85,15 +89,35 @@ function addJamsSlideAnimation(jamsText) {
         params.JAMS_ANIMATION_DELAY;
 }
 
+function addHiddenSlideAnimation(hiddenText) {
+    let params = LOGO_ANIMATION_PARAMETERS;
+
+    hiddenText.style.animation += ', ' +
+        params.HIDDEN_SLIDE_CSS_ANIMATION_TAG + ' ' +
+        params.JAMS_ANIMATION_LENGTH + ' ' +
+        'forwards' + ' ' +
+        params.JAMS_EASING_TYPE + ' ' +
+        params.JAMS_ANIMATION_DELAY;
+
+    console.log(hiddenText.style.animation);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const video = document.getElementById('landingpage-video');
 
-    // video.addEventListener('ended', () => {
-    //     fireAnimation();
-    // });
-
-    setTimeout(() => fireAnimation(), 1000);
+    setTimeout(() => fireLandscapeAnimation(), 1000);
 });
+
+let firePortraitAnimation = function () {
+    let video = document.querySelector("#landingpage-video");
+
+    let videoDuration = video.duration;
+    let timeToPlay = (videoDuration - 2.1) * 1000;
+    console.log(timeToPlay);
+
+    setTimeout(() => addAnimations(),
+        timeToPlay);
+}
 
 
 let LOGO_ANIMATION_PARAMETERS = {
@@ -106,4 +130,7 @@ let LOGO_ANIMATION_PARAMETERS = {
     JAMS_ANIMATION_DELAY: "1.7s",
     JAMS_ANIMATION_LENGTH: "1.7s",
     JAMS_EASING_TYPE: "ease-in-out",
+
+    HIDDEN_SLIDE_CSS_ANIMATION_TAG: 'slideLeft'
+
 };
