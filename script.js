@@ -67,6 +67,12 @@ function loadCorrectVideo(orientation) {
 
     // Reload the video to apply the changes
     videoElement.load();
+
+    videoElement.addEventListener('ended', () => {
+        videoElement.style.display = 'none';
+        console.log("HIDING THIS: ");
+        console.log(videoElement);
+    })
 }
 
 function scheduleAnimation(screenOrientation, timeToWait) {
