@@ -4,16 +4,48 @@ import {ORIENTATION} from "./constants.js";
 // Initializes animation once document is loaded
 document.addEventListener('DOMContentLoaded', initialiseAnimation);
 
+if (isAtTop()) {
+    document.querySelector('body').style.overflow = "hidden";
+}
+
+function isAtTop() {
+    return window.scrollY === 0;
+}
+
+
+// TODO - sync this with slide across animation
 //Initializes Scroll Handler
 window.addEventListener('scroll', handleScroll);
 window.addEventListener('resize', handleScroll);
-document.addEventListener('DOMContentLoaded', handleScroll);
+
+function hideVideo() {
+    document.getElementById('landingpage-video').style.display = "none";
+}
+
+function hideAnimatedElements() {
+    let hiddenText = document.querySelector('#hidden-text');
+    let jamsText = document.querySelector('#jams-text');
+    let imageContainer = document.querySelector('.image-container');
+    let navBar = document.querySelector('.navbar');
+
+    hiddenText.style.position = 'absolute';
+    hiddenText.style.color = 'transparent';
+    jamsText.style.position = 'absolute';
+    jamsText.style.color = 'transparent';
+    imageContainer.style.display = 'none';
+    navBar.style.opacity = '0';
+}
 
 function initialiseAnimation() {
     let orientation = getScreenOrientation();
 
-    loadCorrectVideo(orientation);
-    scheduleAnimation(orientation);
+    if (isAtTop()) {
+        hideAnimatedElements();
+        loadCorrectVideo(orientation);
+        scheduleAnimation(orientation, 1000);
+    } else {
+        hideVideo();
+    }
 }
 
 function getScreenOrientation() {
@@ -31,12 +63,14 @@ function loadCorrectVideo(orientation) {
         videoSourceElement.src = 'media/landingpage-intro-hochkant.mp4';
     }
 
+    videoElement.style.display = 'block';
+
     // Reload the video to apply the changes
     videoElement.load();
 }
 
-function scheduleAnimation(screenOrientation) {
-    setTimeout(() => fireAnimation(screenOrientation), 1000);
+function scheduleAnimation(screenOrientation, timeToWait) {
+    setTimeout(() => fireAnimation(screenOrientation), timeToWait);
 }
 
 let fireAnimation = function (orientation) {
@@ -65,6 +99,7 @@ function addAnimations(orientation) {
     addJamsSlideAnimation(jamsText, orientation);
     scheduleBottomCoverAnimation(bottomImageCover, bottomImage);
     scheduleNavbarAppearance();
+    scheduleScrollingEnable();
 }
 
 function addHiddenSlideAnimation(hiddenText, orientation) {
@@ -131,6 +166,16 @@ function scheduleNavbarAppearance() {
         LOGO_ANIMATION_PARAMETERS.NAVBAR_DELAY * 1000)
 }
 
+function scheduleScrollingEnable() {
+    const body = document.querySelector("body");
+    let scrollEnableDelay = (LOGO_ANIMATION_PARAMETERS.JAMS_ANIMATION_LENGTH +
+        LOGO_ANIMATION_PARAMETERS.JAMS_ANIMATION_DELAY) * 1000;
+
+    setTimeout(() => body.style.overflow = "auto",
+        scrollEnableDelay);
+
+}
+
 function makeNavbarVisible() {
     let navbar = document.querySelector('.navbar');
 
@@ -142,9 +187,8 @@ function addBottomCoverAnimation(bottomImageCover, bottomImage) {
     bottomImageCover.style.zIndex = "5";
     bottomImageCover.style.animation = "coverSlide 1s forwards 1s";
     bottomImage.style.display = "flex";
+    console.log("HELLO!")
 }
-
-
 
 
 // SCROLL REVEAL
@@ -154,14 +198,15 @@ function toggleVisibility(elementId, threshold) {
     var rect = element.getBoundingClientRect();
 
     if (rect.top < window.innerHeight - threshold) {
-      element.classList.add('visible-element');
-      element.classList.remove('hidden-element');
-    } 
+        element.classList.add('visible-element');
+        element.classList.remove('hidden-element');
+    }
 }
 
 function handleScroll() {
     toggleVisibility('element1', 200);
-    toggleVisibility('element2', 250);
+    setTimeout(() => toggleVisibility('element2', 200), 500);
+
     // toggleVisibility('element3', 200);
     // toggleVisibility('element4', 250);
 }
