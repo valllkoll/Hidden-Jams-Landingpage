@@ -1,3 +1,5 @@
+// TODO - Get session cookie and don't play the video if they've visited recently
+
 import {LOGO_ANIMATION_PARAMETERS} from "./constants.js";
 import {ORIENTATION} from "./constants.js";
 
@@ -211,7 +213,7 @@ function toggleVisibility(elementId, threshold) {
 
 function handleScroll() {
     toggleVisibility('element1', 200);
-    setTimeout(() => toggleVisibility('element2', 200), 500);
+    setTimeout(() => toggleVisibility('element2', 100), 500);
 
     // toggleVisibility('element3', 200);
     // toggleVisibility('element4', 250);
