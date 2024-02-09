@@ -7,8 +7,11 @@
     <title>Hidden Jams LP</title>
     <script type="module" src="script.js"></script>
     <script type="module" src="constants.js"></script>
+    <script type="module" src="teaserVideos.js"></script>
 </head>
 <body>
+
+<div class="modal"></div>
 
 <div class="cover"></div>
 
@@ -26,24 +29,49 @@
         <video id="landingpage-video" width="100%" height="auto" autoplay muted playsinline>
             <source id="landingpage-source" type="video/mp4">
         </video>
-        <h1 id="hidden-text" class="blur title-text">HIDDEN</h1>
-        <h1 id="jams-text" class="title-text">JAMS</h1>
+        <div id="hidden-text" class="blur title-text">HIDDEN</div>
+        <div id="jams-text" class="title-text">JAMS</div>
     </div>
 
     <div class="image-container"></div>
 
     <div class="info-segment">
-        <div class= "info-wrapper">
-            <div class="big-font hidden-element" id="element1">Mehr als nur Musikvideos. Ein innovatives Förderprogramm 
+        <div class="info-wrapper">
+            <div class="big-font hidden-element" id="element1">Mehr als nur Musikvideos. Ein innovatives Förderprogramm
                 von und für junge Profis der norddeutschen Kreativlandschaft.
             </div>
             <div class="line-wrapper"></div>
             <div class="small-font hidden-element" id="element2">
-                <p>Hannovers Hidden Jams vereinen dutzende junge Kreative mit einer Idee: 
-                    Einen gemeinsamem Ort zu schaffen, an dem sie sich selbstverwirklichen 
+                <p>Hannovers Hidden Jams vereinen dutzende junge Kreative mit einer Idee:
+                    Einen gemeinsamem Ort zu schaffen, an dem sie sich selbstverwirklichen
                     und zusammen auf höchstem Niveau arbeiten und lernen können.</p>
             </div>
         </div>
+    </div>
+
+    <div class="teaser-container">
+
+        <div class="teaser-item">
+            <video id="teaser1" class="teaser-vid" preload="auto" autoplay loop muted>
+                <source id="teaser1-source" src="media/teaser1.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="teaser-item">
+            <video id="teaser2" class="teaser-vid" preload="auto" autoplay loop muted>
+                <source id="teaser2-source" src="media/teaser2.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="teaser-item">
+            <video id="teaser3" class="teaser-vid" preload="auto" autoplay loop muted>
+                <source id="teaser3-source" src="media/teaser3.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
+
+    <div class="modal-video-container">
+        <video id="modal-video" class="teaser-vid" preload="auto" autoplay loop muted>
+            <source id="modal-video-src" src="media/teaser3.mp4" type="video/mp4">
+        </video>
     </div>
 </div>
 
