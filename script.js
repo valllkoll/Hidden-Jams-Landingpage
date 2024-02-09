@@ -28,14 +28,12 @@ function hideAnimatedElements() {
     let hiddenText = document.querySelector('#hidden-text');
     let jamsText = document.querySelector('#jams-text');
     let imageContainer = document.querySelector('.image-container');
-    let navBar = document.querySelector('.navbar');
 
     hiddenText.style.position = 'absolute';
     hiddenText.style.color = 'transparent';
     jamsText.style.position = 'absolute';
     jamsText.style.color = 'transparent';
     imageContainer.style.display = 'none';
-    navBar.style.opacity = '0';
 }
 
 function initialiseAnimation() {
@@ -106,7 +104,6 @@ function addAnimations(orientation) {
     addHiddenSlideAnimation(hiddenText, orientation);
     addJamsSlideAnimation(jamsText, orientation);
     scheduleBottomCoverAnimation(bottomImageCover, bottomImage);
-    scheduleNavbarAppearance();
     scheduleScrollingEnable();
 }
 
@@ -168,12 +165,6 @@ function scheduleBottomCoverAnimation(bottomImageCover, bottomImage) {
         LOGO_ANIMATION_PARAMETERS.IMAGE_COVER_DELAY * 1000)
 }
 
-function scheduleNavbarAppearance() {
-    setTimeout(() =>
-            makeNavbarVisible(),
-        LOGO_ANIMATION_PARAMETERS.NAVBAR_DELAY * 1000)
-}
-
 function scheduleScrollingEnable() {
     const body = document.querySelector("body");
     let scrollEnableDelay = (LOGO_ANIMATION_PARAMETERS.JAMS_ANIMATION_LENGTH +
@@ -182,13 +173,6 @@ function scheduleScrollingEnable() {
     setTimeout(() => body.style.overflow = "auto",
         scrollEnableDelay);
 
-}
-
-function makeNavbarVisible() {
-    let navbar = document.querySelector('.navbar');
-
-    navbar.style.display = 'flex';
-    navbar.style.animation = 'fadeIn 2s forwards';
 }
 
 function addBottomCoverAnimation(bottomImageCover, bottomImage) {
