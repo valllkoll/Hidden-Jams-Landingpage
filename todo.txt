@@ -1,0 +1,14 @@
+
+0. Hidden Jams text should work responsively
+
+1. Make Hidden behind modal window
+
+2. Get video animation working correctly
+
+3. Make responsive for mobile and tablet views
+
+4. Add info segment text left side
+
+5. Parallax-effekt für team
+
+6. Kontakt-Aufruf
