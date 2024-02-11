@@ -24,15 +24,21 @@ function hideVideo() {
     document.getElementById('landingpage-video').style.display = "none";
 }
 
-function hideAnimatedElements() {
+function hideAnimatedElements(orientation) {
     let hiddenText = document.querySelector('#hidden-text');
     let jamsText = document.querySelector('#jams-text');
     let imageContainer = document.querySelector('.image-container');
 
-    hiddenText.style.position = 'absolute';
     hiddenText.style.color = 'transparent';
-    jamsText.style.position = 'absolute';
     jamsText.style.color = 'transparent';
+
+    if (orientation === ORIENTATION.LANDSCAPE) {
+        jamsText.style.transform = 'translateX(-40%)';
+        hiddenText.style.transform = 'translateX(45%)';
+    } else {
+        jamsText.style.transform = 'translateY(-60%)';
+        hiddenText.style.transform = 'translateY(33%)';
+    }
     imageContainer.style.display = 'none';
 }
 
@@ -40,7 +46,7 @@ function initialiseAnimation() {
     let orientation = getScreenOrientation();
 
     if (isAtTop()) {
-        hideAnimatedElements();
+        hideAnimatedElements(orientation);
         loadCorrectVideo(orientation);
         scheduleAnimation(orientation, 1000);
     } else {
@@ -63,6 +69,8 @@ function loadCorrectVideo(orientation) {
         videoSourceElement.src = 'media/landingpage-intro-hochkant.mp4';
     }
 
+    decideFullScreenSettings(videoElement);
+
     videoElement.style.display = 'block';
 
     // Reload the video to apply the changes
@@ -73,6 +81,26 @@ function loadCorrectVideo(orientation) {
         console.log("HIDING THIS: ");
         console.log(videoElement);
     })
+}
+
+function decideFullScreenSettings(videoElement, orientation) {
+    const screenAspectRatio = window.innerWidth / window.innerHeight;
+    let videoAspectRatio;
+    if (orientation === ORIENTATION.LANDSCAPE) {
+        videoAspectRatio = 1920 / 1080;
+    } else {
+        videoAspectRatio = 1080 / 1280;
+    }
+
+    if (screenAspectRatio > videoAspectRatio) {
+        // Screen is wider/thinner than the video, set height to 100%
+        videoElement.style.height = 'auto';
+        videoElement.style.width = '100%';
+    } else {
+        // Screen is taller/wider than the video, set width to 100%
+        videoElement.style.height = '100%';
+        videoElement.style.width = 'auto';
+    }
 }
 
 function scheduleAnimation(screenOrientation, timeToWait) {
