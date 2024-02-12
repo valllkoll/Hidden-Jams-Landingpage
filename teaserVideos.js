@@ -21,11 +21,12 @@ function teaserMouseout(modal) {
             teaserItem.width = '30%';
             teaserItem.style.filter = 'blur(2px) brightness(90%) contrast(80%)';
             setTimeout(() => {
-                let teaserVids = document.querySelectorAll('.teaser-item');
-
-                for (let i = 0; i < 3; i++) {
-                    teaserVids[i].style.zIndex = '6';
-                }
+                // let teaserVids = document.querySelectorAll('.teaser-item');
+                //
+                // for (let i = 0; i < 3; i++) {
+                //     teaserVids[i].style.zIndex = '6';
+                // }
+                teaserItem.style.zIndex = '6';
 
                 modal.style.zIndex = '5';
             }, 1000);
@@ -47,16 +48,15 @@ function teaserMouseover(modal) {
             // teaserItem.style.transform = 'scale(1.2)';
             teaserVid.playbackRate = 1;
             teaserItem.style.filter = 'none';
+            teaserItem.style.zIndex = '9999';
             modal.style.opacity = '0.9';
             modal.style.zIndex = '9998';
 
-            let teaserVids = document.querySelectorAll('.teaser-item');
-
-            console.log(teaserVids);
-
-            for (let i = 0; i < 3; i++) {
-                teaserVids[i].style.zIndex = '9999';
-            }
+            // let teaserVids = document.querySelectorAll('.teaser-item');
+            //
+            // for (let i = 0; i < 3; i++) {
+            //     teaserVids[i].style.zIndex = '9999';
+            // }
 
             // Preventing the event from bubbling up to the parent container
             event.stopPropagation();
@@ -95,19 +95,57 @@ let slowDownTeaserVideos = function () {
 
 function muteUnmute(teaserItem) {
     let teaserVid = teaserItem.querySelector('.teaser-vid');
-    if (teaserVid.muted) {
-        // Unmute the video
-        console.log("UNMUTE")
-        teaserVid.muted = false;
+    if (teaserVid.volume !== 0) {
+        fadeOutAudio(teaserVid, 2000);
     } else {
-        // Mute the video
-        console.log("MUTE")
-        teaserVid.muted = true;
+        fadeInAudio(teaserVid, 2000);
     }
+}
 
+function fadeOutAudio(teaserVideo, duration) {
+    const startVolume = teaserVideo.volume;
+    console.log(startVolume);
+    const intervalTime = 100; // Interval time in milliseconds
+    const steps = duration / intervalTime;
+    const volumeStep = 0.1;
+
+    let currentStep = 0;
+
+    const fadeInterval = setInterval(() => {
+        if (teaserVideo.volume - volumeStep > 0) {
+            teaserVideo.volume = teaserVideo.volume - volumeStep;
+            currentStep++;
+        } else {
+            // Clear the interval when the fade-out is complete
+            clearInterval(fadeInterval);
+            teaserVideo.volume = 0; // Ensure the volume is set to 0 at the end
+        }
+    }, intervalTime);
+}
+
+function fadeInAudio(teaserVideo, duration) {
+    console.log("Fading in!");
+    const intervalTime = 100; // Interval time in milliseconds
+    const steps = duration / intervalTime;
+    const volumeStep = 0.1;
+
+    let currentStep = 0;
+
+    const fadeInterval = setInterval(() => {
+        if (teaserVideo.volume + volumeStep < 1) {
+            teaserVideo.volume = teaserVideo.volume + volumeStep;
+            currentStep++;
+        } else {
+            // Clear the interval when the fade-out is complete
+            clearInterval(fadeInterval);
+            teaserVideo.volume = 1; // Ensure the volume is set to 0 at the end
+        }
+    }, intervalTime);
 }
 
 function makeTeaserVidBig(teaserVid, teaserItem) {
+    // audioContext.
+
     const teaserContainer = document.querySelector('.teaser-container')
     const teaserRect = teaserItem.getBoundingClientRect();
 

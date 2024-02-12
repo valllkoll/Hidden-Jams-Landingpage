@@ -1,11 +1,14 @@
 
-0. Hidden Jams text should work responsively
+1. Videos should all be visible, but with a filter / lower opacity on mouseover
+    - and navbar shouldn't come up in between!
 
-1. Make Hidden behind modal window
+2. Videos should disappear when entering 'kino-mode'
 
-2. Get video animation working correctly
+3. Audio should fade in when muting/unmuting
 
-3. Make responsive for mobile and tablet views
+
+
+
 
 4. Add info segment text left side
 
