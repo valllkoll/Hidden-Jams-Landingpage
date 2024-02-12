@@ -18,10 +18,15 @@ function teaserMouseout(modal) {
             // Handle mouseout on teaser video
             teaserItem.style.transform = 'scale(1)';
             teaserVid.playbackRate = 0.6;
-            teaserItem.style.zIndex = '6';
             teaserItem.width = '30%';
             teaserItem.style.filter = 'blur(2px) brightness(90%) contrast(80%)';
             setTimeout(() => {
+                let teaserVids = document.querySelectorAll('.teaser-item');
+
+                for (let i = 0; i < 3; i++) {
+                    teaserVids[i].style.zIndex = '6';
+                }
+
                 modal.style.zIndex = '5';
             }, 1000);
             modal.style.opacity = 0;
@@ -42,9 +47,16 @@ function teaserMouseover(modal) {
             // teaserItem.style.transform = 'scale(1.2)';
             teaserVid.playbackRate = 1;
             teaserItem.style.filter = 'none';
-            teaserItem.style.zIndex = '9999';
             modal.style.opacity = '0.9';
             modal.style.zIndex = '9998';
+
+            let teaserVids = document.querySelectorAll('.teaser-item');
+
+            console.log(teaserVids);
+
+            for (let i = 0; i < 3; i++) {
+                teaserVids[i].style.zIndex = '9999';
+            }
 
             // Preventing the event from bubbling up to the parent container
             event.stopPropagation();
