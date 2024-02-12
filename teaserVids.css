@@ -1,0 +1,10 @@
+
+@keyframes replacementAnimation {
+    from {
+    }
+    to {
+        width: 80%;
+        left: 10%;
+        height: 80vh;
+    }
+}
