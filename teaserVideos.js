@@ -18,8 +18,12 @@ function teaserMouseout(modal) {
             // Handle mouseout on teaser video
             teaserItem.style.transform = 'scale(1)';
             teaserVid.playbackRate = 0.6;
+            teaserItem.style.zIndex = '6';
             teaserItem.width = '30%';
             teaserItem.style.filter = 'blur(2px) brightness(90%) contrast(80%)';
+            setTimeout(() => {
+                modal.style.zIndex = '5';
+            }, 1000);
             modal.style.opacity = 0;
 
             // Preventing the event from bubbling up to the parent container
@@ -35,10 +39,12 @@ function teaserMouseover(modal) {
 
         if (teaserItem && teaserVid) {
             // Handle mouseover on teaser video
-            teaserItem.style.transform = 'scale(1.2)';
+            // teaserItem.style.transform = 'scale(1.2)';
             teaserVid.playbackRate = 1;
             teaserItem.style.filter = 'none';
-            modal.style.opacity = '0.75';
+            teaserItem.style.zIndex = '9999';
+            modal.style.opacity = '0.9';
+            modal.style.zIndex = '9998';
 
             // Preventing the event from bubbling up to the parent container
             event.stopPropagation();
@@ -68,78 +74,143 @@ let slowDownTeaserVideos = function () {
 
         if (teaserItem && teaserVid) {
             // Get the video source
-            let teaserSrc = teaserVid.querySelector('source');
+            // addStyle(replacementVideo, teaserVid, teaserItem);
 
-            // Create a new video element to replace the clicked video
-            const replacementVideo = document.createElement('video');
-            replacementVideo.setAttribute('id', 'replacement-video');
-            replacementVideo.setAttribute('id', 'replacement-video');
-            replacementVideo.setAttribute('preload', 'auto');
-            replacementVideo.setAttribute('autoplay', 'true');
-            replacementVideo.setAttribute('loop', 'true');
-            replacementVideo.setAttribute('muted', 'true');
-
-            // Create a new source element for the replacement video
-            const replacementSource = document.createElement('source');
-            replacementSource.setAttribute('src', teaserSrc.src);
-            replacementSource.setAttribute('type', 'video/mp4');
-
-            // Append the source element to the replacement video
-            replacementVideo.appendChild(replacementSource);
-
-            addStyle(replacementVideo, teaserVid, teaserItem);
-
-            teaserVid.style.opacity = '0';
-
+            makeTeaserVidBig(teaserVid, teaserItem);
         }
     });
 }
 
-let addStyle = function (replacementVideo, teaserVid, teaserItem) {
-    let modalContainer = document.querySelector('.modal-video-container');
-    modalContainer.style.display = 'flex';
+function muteUnmute(teaserItem) {
+    let teaserVid = teaserItem.querySelector('.teaser-vid');
+    if (teaserVid.muted) {
+        // Unmute the video
+        console.log("UNMUTE")
+        teaserVid.muted = false;
+    } else {
+        // Mute the video
+        console.log("MUTE")
+        teaserVid.muted = true;
+    }
 
-    const modal = document.querySelector('.modal');
+}
 
+function makeTeaserVidBig(teaserVid, teaserItem) {
+    const teaserContainer = document.querySelector('.teaser-container')
     const teaserRect = teaserItem.getBoundingClientRect();
-    const teaserTop = teaserRect.top + window.scrollY;
-    const teaserLeft = teaserRect.left + window.scrollX;
+
+    // Calculate the new width and height
+    const oldWidth = teaserRect.width;
+    const oldHeight = teaserRect.height;
+
+// Calculate the adjustment in top and left
+    let topAdjustment = (oldHeight - teaserRect.height) / 2;
+    let leftAdjustment = (oldWidth - teaserRect.width) / 2;
+
+// Adjust the teaserTop and teaserLeft values
+    const teaserTop = teaserRect.top - topAdjustment;
+    const teaserLeft = teaserRect.left - leftAdjustment;
 
     // Get dimensions of the teaser item
     const teaserWidth = teaserItem.offsetWidth;
     const teaserHeight = teaserItem.offsetHeight;
 
-    // Create a div to contain the replacement video
-    const replacementContainer = document.createElement('div');
-    replacementContainer.style.width = teaserWidth * 1.2 + 'px';
-    replacementContainer.style.height = teaserHeight * 1.2 + 'px';
-    replacementContainer.style.position = 'absolute'; // Set to 'fixed' to position relative to the viewport
-    replacementContainer.style.top = teaserTop + 'px';
-    replacementContainer.style.left = teaserLeft + 'px';
-    replacementContainer.style.overflow = 'hidden'; // Ensure the video is contained within the div
+    teaserItem.style.width = teaserWidth + 'px';
+    teaserItem.style.height = teaserHeight + 'px';
+    teaserItem.style.position = 'fixed';
+    teaserItem.style.top = teaserTop + 'px';
+    teaserItem.style.left = teaserLeft + 'px';
+    teaserItem.style.overflow = 'hidden'; // Ensure the video is contained within the div
+    teaserItem.style.zIndex = '99999';
+    teaserItem.style.opacity = '1';
+    teaserItem.style.overflow = 'visible';
 
 
     // Set dimensions of the replacement video
-    replacementVideo.style.objectFit = 'cover';
-    replacementVideo.style.height = '100%';
-    replacementVideo.volume = '1';
+    teaserVid.style.objectFit = 'cover';
+    teaserVid.style.height = '100%';
+    teaserVid.style.zIndex = '99999';
+    teaserVid.style.opacity = '1';
+    teaserVid.muted = false;
 
-    // Append the replacement video to the video container
-    replacementContainer.appendChild(replacementVideo);
+    teaserItem.classList.remove('teaser-item');
 
-    // Add any additional styles as needed
-    replacementVideo.style.position = 'absolute';
-    replacementVideo.style.zIndex = '9999';
-    replacementContainer.style.animation = 'replacementAnimation 2s forwards';
+    teaserItem.style.animation = 'replacementAnimation 2s forwards';
 
+    const dummyDiv = document.createElement('div');
+    dummyDiv.classList.add('teaser-item');
+    dummyDiv.classList.add('dummy-div');
 
-    // Todo - Modal changes back into its mouseout state here! Maybe make the replacement container take up the whole screen so nothing else is clickable?
-    modal.style.backgroundColor = 'red';
+    dummyDiv.style.width = teaserItem.width;
 
-    // Append the video container to the teaser item
+    teaserContainer.replaceChild(dummyDiv, teaserItem);
 
-    document.body.appendChild(replacementContainer);
+    const modal = document.querySelector('.modal');
+    modal.style.zIndex = '9998';
+    modal.style.opacity = '1';
+
+    document.body.appendChild(teaserItem);
+
+    teaserItem.addEventListener('click', () => muteUnmute(teaserItem));
+    modal.addEventListener('click', createClickListener(teaserItem));
+}
+
+const createClickListener = (teaserItem) => {
+    // This is the actual click listener function
+    const clickListener = () => {
+        // Your code to handle the click event goes here
+        makeTeaserVidInvisible(teaserItem);
+
+        const modal = document.querySelector('.modal');
+        modal.removeEventListener('click', clickListener);
+    };
+
+    // Return the listener function
+    return clickListener;
+};
+
+let makeTeaserVidInvisible = function (teaserItem) {
+    const firstTeaserItem = document.querySelector('.teaser-item');
+    const dummyDiv = document.querySelector('.dummy-div')
+
+    const newWidth = firstTeaserItem.offsetWidth;
+    const newHeight = firstTeaserItem.offsetHeight;
+
+    // Set the keyframes dynamically based on the dummyDiv's position and size
+    document.styleSheets[0].insertRule(`
+                @keyframes videoTransition {
+                    from {
+                            width: 70%;
+                            left: 15%;
+                            top: 15%;
+                            bottom: 10%;
+                            right: auto;
+                            height: 70vh;
+                    }
+                    to {
+                        width: ${newWidth}px;
+                        height: ${newHeight}px;
+                        filter: blur(2px) brightness(90%) contrast(80%);
+                    }
+                }
+            `, 0);
+
+    teaserItem.style.animation = 'videoTransition 2s forwards';
+
+    let teaserVid = teaserItem.querySelector('.teaser-vid');
+    teaserVid.muted = true;
+
+    setTimeout(() => {
+        dummyDiv.appendChild(teaserVid);
+        document.body.removeChild(teaserItem);
+        dummyDiv.classList.remove('dummy-div');
+        modal.style.zIndex = '5';
+    }, 2000);
+
+    const modal = document.querySelector('.modal');
+    modal.style.opacity = '0';
+    modal.style.transition = 'opacity 2s ease';
 };
 
 // Teaser videos are slowed by default
-    document.addEventListener('DOMContentLoaded', slowDownTeaserVideos);
+document.addEventListener('DOMContentLoaded', slowDownTeaserVideos);
