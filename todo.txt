@@ -4,7 +4,10 @@
 
 2. Videos should disappear when entering 'kino-mode'
 
-3. Audio should fade in when muting/unmuting
+3. Audio should fade in when muting/unmuting (and not break the computer)
+    - possibly use audio context? Initialize when clicking?
+
+4. Make videos look nice for ipad and for phone (give an x on the side)
 
 
 

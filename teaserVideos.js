@@ -1,3 +1,5 @@
+let lastMouseout = Date.now();
+
 function getOtherTeasers(selectedTeaser, teasers) {
     let toReturn = [];
 
@@ -14,19 +16,25 @@ function teaserMouseout(modal) {
     return function (event) {
         const teaserItem = event.target.closest('.teaser-item');
         const teaserVid = event.target.closest('.teaser-vid');
+        const teaserItems = document.querySelectorAll('.teaser-item');
+
         if (teaserItem && teaserVid) {
             // Handle mouseout on teaser video
             teaserItem.style.transform = 'scale(1)';
             teaserVid.playbackRate = 0.6;
             teaserItem.width = '30%';
-            teaserItem.style.filter = 'blur(2px) brightness(90%) contrast(80%)';
+            for (let i = 0; i < 3; i++) {
+                if (teaserItem !== teaserItems[i]) {
+                    teaserItems[i].style.animation = 'brightenVid 0.7s forwards';
+                }
+            }
+            teaserItem.style.animation = 'blurVid 0.7s forwards';
+
             setTimeout(() => {
-                // let teaserVids = document.querySelectorAll('.teaser-item');
-                //
-                // for (let i = 0; i < 3; i++) {
-                //     teaserVids[i].style.zIndex = '6';
-                // }
-                teaserItem.style.zIndex = '6';
+
+                for (let i = 0; i < 3; i++) {
+                    teaserItems[i].style.zIndex = '6';
+                }
 
                 modal.style.zIndex = '5';
             }, 1000);
@@ -34,8 +42,9 @@ function teaserMouseout(modal) {
 
             // Preventing the event from bubbling up to the parent container
             event.stopPropagation();
-        }
-    };
+            lastMouseout = Date.now();
+        };
+    }
 }
 
 function teaserMouseover(modal) {
@@ -47,16 +56,32 @@ function teaserMouseover(modal) {
             // Handle mouseover on teaser video
             // teaserItem.style.transform = 'scale(1.2)';
             teaserVid.playbackRate = 1;
-            teaserItem.style.filter = 'none';
-            teaserItem.style.zIndex = '9999';
             modal.style.opacity = '0.9';
             modal.style.zIndex = '9998';
 
-            // let teaserVids = document.querySelectorAll('.teaser-item');
-            //
-            // for (let i = 0; i < 3; i++) {
-            //     teaserVids[i].style.zIndex = '9999';
-            // }
+            let teaserItems = document.querySelectorAll('.teaser-item');
+
+            for (let i = 0; i < 3; i++) {
+                teaserItems[i].style.zIndex = '9999';
+
+                    if (teaserItem !== teaserItems[i]) {
+                        if (Date.now() - lastMouseout > 500) {
+                            teaserItems[i].style.animation = 'dimVid 0.7s forwards';
+                        } else {
+                            teaserItems[i].style.animation = '';
+                            teaserItems[i].style.filter = 'blur(2px) brightness(0.3) contrast(80%)';
+                        }
+                    }
+            }
+
+            if (Date.now() - lastMouseout < 500) {
+                console.log('darkvid')
+                teaserItem.style.animation = 'sharpenDarkVideo 0.6s forwards';
+            } else {
+                console.log('lightvid');
+                teaserItem.style.animation = 'sharpenBrightVideo 0.3s forwards';
+            }
+            teaserItem.style.filter = 'none';
 
             // Preventing the event from bubbling up to the parent container
             event.stopPropagation();
@@ -93,19 +118,26 @@ let slowDownTeaserVideos = function () {
     });
 }
 
-function muteUnmute(teaserItem) {
+function muteUnmute(teaserItem, seconds) {
     let teaserVid = teaserItem.querySelector('.teaser-vid');
+
+    // if (teaserVid.muted) {
+    //     teaserVid.muted = false;
+    // } else {
+    //     teaserVid.muted = true;
+    // }
+
     if (teaserVid.volume !== 0) {
-        fadeOutAudio(teaserVid, 2000);
+        fadeOutAudio(teaserVid, seconds);
     } else {
-        fadeInAudio(teaserVid, 2000);
+        fadeInAudio(teaserVid, seconds);
     }
 }
 
 function fadeOutAudio(teaserVideo, duration) {
     const startVolume = teaserVideo.volume;
     console.log(startVolume);
-    const intervalTime = 100; // Interval time in milliseconds
+    const intervalTime = duration * 100;
     const steps = duration / intervalTime;
     const volumeStep = 0.1;
 
@@ -125,7 +157,7 @@ function fadeOutAudio(teaserVideo, duration) {
 
 function fadeInAudio(teaserVideo, duration) {
     console.log("Fading in!");
-    const intervalTime = 100; // Interval time in milliseconds
+    const intervalTime = duration * 100; // Interval time in milliseconds
     const steps = duration / intervalTime;
     const volumeStep = 0.1;
 
@@ -136,15 +168,25 @@ function fadeInAudio(teaserVideo, duration) {
             teaserVideo.volume = teaserVideo.volume + volumeStep;
             currentStep++;
         } else {
-            // Clear the interval when the fade-out is complete
+            // Clear the interval when the fade-in is complete
             clearInterval(fadeInterval);
-            teaserVideo.volume = 1; // Ensure the volume is set to 0 at the end
+            teaserVideo.volume = 1; // Ensure the volume is set to 1 at the end
         }
     }, intervalTime);
 }
 
 function makeTeaserVidBig(teaserVid, teaserItem) {
-    // audioContext.
+    let teaserItems = document.querySelectorAll('.teaser-item');
+
+    for (let i = 0; i < 3; i++) {
+
+        if (teaserItem !== teaserItems[i]) {
+            setTimeout(() => {
+                teaserItems[i].style.opacity = '0';
+                teaserItems[i].style.zIndex = '5';
+            }, 500);
+        }
+    }
 
     const teaserContainer = document.querySelector('.teaser-container')
     const teaserRect = teaserItem.getBoundingClientRect();
@@ -181,7 +223,9 @@ function makeTeaserVidBig(teaserVid, teaserItem) {
     teaserVid.style.height = '100%';
     teaserVid.style.zIndex = '99999';
     teaserVid.style.opacity = '1';
+    teaserVid.volume = '0';
     teaserVid.muted = false;
+    muteUnmute(teaserItem, 3);
 
     teaserItem.classList.remove('teaser-item');
 
@@ -201,7 +245,7 @@ function makeTeaserVidBig(teaserVid, teaserItem) {
 
     document.body.appendChild(teaserItem);
 
-    teaserItem.addEventListener('click', () => muteUnmute(teaserItem));
+    teaserItem.addEventListener('click', () => muteUnmute(teaserItem, 0.5));
     modal.addEventListener('click', createClickListener(teaserItem));
 }
 
@@ -220,6 +264,17 @@ const createClickListener = (teaserItem) => {
 };
 
 let makeTeaserVidInvisible = function (teaserItem) {
+    let teaserItems = document.querySelectorAll('.teaser-item');
+
+    for (let i = 0; i < 3; i++) {
+
+        if (teaserItem !== teaserItems[i]) {
+            setTimeout(() => {
+                teaserItems[i].style.opacity = '1';
+            }, 500);
+        }
+    }
+
     const firstTeaserItem = document.querySelector('.teaser-item');
     const dummyDiv = document.querySelector('.dummy-div')
 
@@ -248,7 +303,11 @@ let makeTeaserVidInvisible = function (teaserItem) {
     teaserItem.style.animation = 'videoTransition 2s forwards';
 
     let teaserVid = teaserItem.querySelector('.teaser-vid');
-    teaserVid.muted = true;
+    if (parseFloat(teaserVid.volume) !== 0) {
+        muteUnmute(teaserItem, 3);
+    } else {
+        teaserVid.muted = true;
+    }
 
     setTimeout(() => {
         dummyDiv.appendChild(teaserVid);
