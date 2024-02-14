@@ -1,15 +1,13 @@
-
-1. Videos should all be visible, but with a filter / lower opacity on mouseover
-    - and navbar shouldn't come up in between!
-
-2. Videos should disappear when entering 'kino-mode'
-
 3. Audio should fade in when muting/unmuting (and not break the computer)
     - possibly use audio context? Initialize when clicking?
 
 4. Make videos look nice for ipad and for phone (give an x on the side)
 
+5. NavBar needs to be visible at the correct times and behind modal when needed
 
+6. Give the videos a mute/unmute button at the bottom (flexbox on video container)
+
+7.
 
 
 

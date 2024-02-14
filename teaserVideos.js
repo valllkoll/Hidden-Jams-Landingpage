@@ -1,17 +1,5 @@
 let lastMouseout = Date.now();
 
-function getOtherTeasers(selectedTeaser, teasers) {
-    let toReturn = [];
-
-    teasers.forEach(teaser => {
-        if (teaser !== selectedTeaser) {
-            toReturn.push(teaser);
-        }
-    });
-
-    return toReturn;
-}
-
 function teaserMouseout(modal) {
     return function (event) {
         const teaserItem = event.target.closest('.teaser-item');
@@ -30,20 +18,31 @@ function teaserMouseout(modal) {
             }
             teaserItem.style.animation = 'blurVid 0.7s forwards';
 
+            // Preventing the event from bubbling up to the parent container
+            event.stopPropagation();
+            lastMouseout = Date.now();
+        }
+
+        // Get the mouse coordinates
+        const mouseX = event.clientX;
+        const mouseY = event.clientY;
+
+        // Get the position of the container
+        const containerRect = teaserItem.getBoundingClientRect();
+        const containerTop = containerRect.top;
+        const containerBottom = containerRect.bottom;
+
+        // Check whether the mouse is above or below the container
+        if (mouseY < containerTop || mouseY > containerBottom) {
             setTimeout(() => {
 
                 for (let i = 0; i < 3; i++) {
                     teaserItems[i].style.zIndex = '6';
                 }
-
                 modal.style.zIndex = '5';
             }, 1000);
-            modal.style.opacity = 0;
-
-            // Preventing the event from bubbling up to the parent container
-            event.stopPropagation();
-            lastMouseout = Date.now();
-        };
+            modal.style.opacity = '0';
+        }
     }
 }
 
@@ -69,16 +68,14 @@ function teaserMouseover(modal) {
                             teaserItems[i].style.animation = 'dimVid 0.7s forwards';
                         } else {
                             teaserItems[i].style.animation = '';
-                            teaserItems[i].style.filter = 'blur(2px) brightness(0.3) contrast(80%)';
+                            teaserItems[i].style.animation = 'dimDarkVid 0.7s forwards';
                         }
                     }
             }
 
-            if (Date.now() - lastMouseout < 500) {
-                console.log('darkvid')
+            if (Date.now() - lastMouseout < 300) {
                 teaserItem.style.animation = 'sharpenDarkVideo 0.6s forwards';
             } else {
-                console.log('lightvid');
                 teaserItem.style.animation = 'sharpenBrightVideo 0.3s forwards';
             }
             teaserItem.style.filter = 'none';
@@ -90,11 +87,6 @@ function teaserMouseover(modal) {
 }
 
 let slowDownTeaserVideos = function () {
-    let teasers = [
-        document.querySelector('#teaser1'),
-        document.querySelector('#teaser2'),
-        document.querySelector('#teaser3')
-    ];
     const modal = document.querySelector('.modal');
 
     document.querySelector('.teaser-container').addEventListener('mouseover', teaserMouseover(modal));
@@ -138,7 +130,6 @@ function fadeOutAudio(teaserVideo, duration) {
     const startVolume = teaserVideo.volume;
     console.log(startVolume);
     const intervalTime = duration * 100;
-    const steps = duration / intervalTime;
     const volumeStep = 0.1;
 
     let currentStep = 0;
@@ -158,7 +149,6 @@ function fadeOutAudio(teaserVideo, duration) {
 function fadeInAudio(teaserVideo, duration) {
     console.log("Fading in!");
     const intervalTime = duration * 100; // Interval time in milliseconds
-    const steps = duration / intervalTime;
     const volumeStep = 0.1;
 
     let currentStep = 0;
@@ -225,7 +215,7 @@ function makeTeaserVidBig(teaserVid, teaserItem) {
     teaserVid.style.opacity = '1';
     teaserVid.volume = '0';
     teaserVid.muted = false;
-    muteUnmute(teaserItem, 3);
+    muteUnmute(teaserItem, 1);
 
     teaserItem.classList.remove('teaser-item');
 
@@ -304,10 +294,11 @@ let makeTeaserVidInvisible = function (teaserItem) {
 
     let teaserVid = teaserItem.querySelector('.teaser-vid');
     if (parseFloat(teaserVid.volume) !== 0) {
-        muteUnmute(teaserItem, 3);
-    } else {
-        teaserVid.muted = true;
+        muteUnmute(teaserItem, 0.5);
     }
+    setTimeout(() => {
+        teaserVid.muted = true;
+    }, 1000);
 
     setTimeout(() => {
         dummyDiv.appendChild(teaserVid);
