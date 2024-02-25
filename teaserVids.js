@@ -220,6 +220,7 @@ function makeTeaserVidBig(teaserVid, teaserItem) {
     setTimeout(() => disableDummyModal(), 1500)
     setTimeout(() => document.body.addEventListener('click', createClickListener(teaserItem)), 1500);
 
+    console.log(navBar)
     navBar.style.opacity = '0';
 
     for (let i = 0; i < 3; i++) {

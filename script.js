@@ -195,7 +195,7 @@ function makeNavbarVisible() {
     let navbar = document.querySelector('.navbar');
 
     navbar.style.display = 'flex';
-    navbar.style.animation = 'fadeIn 2s forwards';
+    navbar.style.opacity = '1';
 }
 
 function addBottomCoverAnimation(bottomImageCover, bottomImage) {
@@ -221,9 +221,6 @@ function toggleVisibility(elementId, threshold) {
 function handleScroll() {
     toggleVisibility('element1', 200);
     setTimeout(() => toggleVisibility('element2', 100), 500);
-
-    // toggleVisibility('element3', 200);
-    // toggleVisibility('element4', 250);
 }
 
 
