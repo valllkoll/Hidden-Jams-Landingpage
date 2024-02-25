@@ -371,4 +371,3 @@ let makeTeaserVidInvisible = function (teaserItem) {
 // Teaser videos are slowed by default
 document.addEventListener('DOMContentLoaded', slowDownTeaserVideos);
 document.body.addEventListener('mouseleave', handleMouseLeave);
-navBar.addEventListener('mouseleave', handleMouseLeave);
