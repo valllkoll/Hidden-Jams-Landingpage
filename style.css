@@ -26,10 +26,6 @@ body {
     border-radius: 10px; /* Add a border-radius for rounded corners */
 }
 
-#landingpage-video {
-    display: none;
-}
-
 /* For WebKit (Chrome, Safari) */
 ::-webkit-scrollbar {
     width: 0; /* Width of the vertical scrollbar */
@@ -42,6 +38,7 @@ body {
 #landingpage-video {
     width: 100%;
     height: auto;
+    z-index: 1000000;
 }
 
 .container {
@@ -154,7 +151,7 @@ h1 {
 }
 
 .navbar {
-    display: none;
+    display: flex;
     background-color: #f5f5f5;
     padding: 15px;
     position: fixed;
@@ -163,6 +160,7 @@ h1 {
     border-bottom: 1px solid #333;
     z-index: 99999;
     transition: opacity 1.2s ease;
+    opacity: 1;
 }
 
 .navbar .separator {
@@ -228,7 +226,7 @@ h1 {
         font-weight: lighter;
     }
     to {
-        transform: translateX(65%);
+        transform: translateX(0%);
         font-weight: lighter;
         color: #333;
     }
@@ -238,7 +236,7 @@ h1 {
     from {
     }
     to {
-        transform: translateX(-40%);
+        transform: translateX(0%);
         color: #333;
     }
 }
@@ -248,7 +246,7 @@ h1 {
         font-weight: lighter;
     }
     to {
-        transform: translateY(60%);
+        transform: translateY(0%);
         font-weight: lighter;
         color: #333;
     }
@@ -258,7 +256,7 @@ h1 {
     from {
     }
     to {
-        transform: translateY(-33%);
+        transform: translateY(0%);
         color: #333;
     }
 }
@@ -327,7 +325,7 @@ h1 {
     }
 }
 
-@media (orientation: portrait) and (min-width: 700px) {
+@media (orientation: portrait){
     .container {
         flex-wrap: wrap;
         flex-direction: column;

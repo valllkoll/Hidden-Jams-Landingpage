@@ -24,17 +24,24 @@ function hideVideo() {
     document.getElementById('landingpage-video').style.display = "none";
 }
 
-function hideAnimatedElements() {
+function hideAnimatedElements(orientation) {
     let hiddenText = document.querySelector('#hidden-text');
     let jamsText = document.querySelector('#jams-text');
     let imageContainer = document.querySelector('.image-container');
     let navBar = document.querySelector('.navbar');
 
-    hiddenText.style.position = 'absolute';
     hiddenText.style.color = 'transparent';
-    jamsText.style.position = 'absolute';
     jamsText.style.color = 'transparent';
+
+    if (orientation === ORIENTATION.LANDSCAPE) {
+        jamsText.style.transform = 'translateX(-40%)';
+        hiddenText.style.transform = 'translateX(45%)';
+    } else {
+        jamsText.style.transform = 'translateY(-60%)';
+        hiddenText.style.transform = 'translateY(33%)';
+    }
     imageContainer.style.display = 'none';
+
     navBar.style.opacity = '0';
 }
 
@@ -42,7 +49,7 @@ function initialiseAnimation() {
     let orientation = getScreenOrientation();
 
     if (isAtTop()) {
-        hideAnimatedElements();
+        hideAnimatedElements(orientation);
         loadCorrectVideo(orientation);
         scheduleAnimation(orientation, 1000);
     } else {
