@@ -5,6 +5,7 @@ function teaserMouseout(modal) {
         const teaserItem = event.target.closest('.teaser-item');
         const teaserVid = event.target.closest('.teaser-vid');
         const teaserItems = document.querySelectorAll('.teaser-item');
+        const navBar = document.querySelector('.navbar');
 
         if (teaserItem && teaserVid) {
             // Handle mouseout on teaser video
@@ -22,38 +23,50 @@ function teaserMouseout(modal) {
             lastMouseout = Date.now();
         }
 
-        const mouseY = event.clientY;
+        handleMouseMove(event);
+    }
+}
 
-        // Get the position of the container
-        const containerRect = teaserItem.getBoundingClientRect();
-        const containerTop = containerRect.top;
-        const containerBottom = containerRect.bottom;
+function handleMouseMove(event) {
+    const teaserItems = document.querySelectorAll('.teaser-item');
+    const mouseY = event.clientY;
 
-        // Check whether the mouse is above or below the container
-        if (mouseY < containerTop || mouseY > containerBottom) {
-            setTimeout(() => {
+    const containerRect = teaserItems[0].getBoundingClientRect();
+    const containerTop = containerRect.top;
+    const containerBottom = containerRect.bottom;
 
-                for (let i = 0; i < 3; i++) {
-                    teaserItems[i].style.zIndex = '6';
-                }
-                modal.style.zIndex = '5';
-            }, 1000);
-            modal.style.opacity = '0';
-        }
+    if (mouseY < containerTop || mouseY > containerBottom) {
+        const modal = document.querySelector('.modal');
+
+        setTimeout(() => {
+
+            for (let i = 0; i < 3; i++) {
+                teaserItems[i].style.zIndex = '6';
+            }
+            modal.style.zIndex = '5';
+        }, 1000);
+        modal.style.opacity = '0';
+
+        // TODO - ask Valentin
+        // navBar.style.opacity = '1';
+        document.body.removeEventListener('mousemove', handleMouseMove);
     }
 }
 
 function teaserMouseover(modal) {
     return function (event) {
+        const navBar = document.querySelector('.navbar');
         const teaserItem = event.target.closest('.teaser-item');
         const teaserVid = event.target.closest('.teaser-vid');
 
         if (teaserItem && teaserVid) {
             // Handle mouseover on teaser video
-            // teaserItem.style.transform = 'scale(1.2)';
             modal.style.opacity = '0.9';
             modal.style.zIndex = '9998';
             modal.style.transition = 'opacity 0.9s ease';
+
+            // TODO - ask valentin
+            // navBar.style.opacity = '0%';
 
             let teaserItems = document.querySelectorAll('.teaser-item');
 
@@ -79,6 +92,7 @@ function teaserMouseover(modal) {
 
             // Preventing the event from bubbling up to the parent container
             event.stopPropagation();
+            document.body.addEventListener('mousemove', handleMouseMove);
         }
     };
 }
@@ -99,9 +113,6 @@ let slowDownTeaserVideos = function () {
         teaserContainer.removeEventListener('mouseout', teaserMouseover)
 
         if (teaserItem && teaserVid) {
-            // Get the video source
-            // addStyle(replacementVideo, teaserVid, teaserItem);
-
             makeTeaserVidBig(teaserVid, teaserItem);
         }
     });
@@ -144,7 +155,6 @@ function fadeOutAudio(teaserVideo, duration) {
 }
 
 function fadeInAudio(teaserVideo, duration) {
-    console.log("Fading in!");
     const intervalTime = duration * 100; // Interval time in milliseconds
     const volumeStep = 0.1;
 
@@ -164,6 +174,11 @@ function fadeInAudio(teaserVideo, duration) {
 
 function makeTeaserVidBig(teaserVid, teaserItem) {
     let teaserItems = document.querySelectorAll('.teaser-item');
+    const navBar = document.querySelector('.navbar');
+    document.body.removeEventListener('mousemove', handleMouseMove);
+
+
+    navBar.style.opacity = '0';
 
     for (let i = 0; i < 3; i++) {
 
@@ -183,11 +198,11 @@ function makeTeaserVidBig(teaserVid, teaserItem) {
     const oldWidth = teaserRect.width;
     const oldHeight = teaserRect.height;
 
-// Calculate the adjustment in top and left
+    // Calculate the adjustment in top and left
     let topAdjustment = (oldHeight - teaserRect.height) / 2;
     let leftAdjustment = (oldWidth - teaserRect.width) / 2;
 
-// Adjust the teaserTop and teaserLeft values
+    // Adjust the teaserTop and teaserLeft values
     const teaserTop = teaserRect.top - topAdjustment;
     const teaserLeft = teaserRect.left - leftAdjustment;
 
