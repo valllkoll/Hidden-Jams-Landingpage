@@ -1,11 +1,5 @@
 4. Make videos look nice for ipad and for phone (give an x on the side)
 
-5. NavBar needs to be visible at the correct times and behind modal when needed
-
-6. Make videos close again on click
-
-7. Prevent scrolling during video animation (when it goes to center) - Also prevent clicking
-
 8. Make escape exit the kino mode
 
 9.

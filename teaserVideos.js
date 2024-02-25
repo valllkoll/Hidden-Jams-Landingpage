@@ -1,5 +1,7 @@
 let lastMouseout = Date.now();
 
+let boundingRect;
+
 function teaserMouseout(modal) {
     return function (event) {
         const teaserItem = event.target.closest('.teaser-item');
@@ -8,8 +10,6 @@ function teaserMouseout(modal) {
         const navBar = document.querySelector('.navbar');
 
         if (teaserItem && teaserVid) {
-            // Handle mouseout on teaser video
-            teaserItem.style.transform = 'scale(1)';
             teaserItem.width = '30%';
             for (let i = 0; i < 3; i++) {
                 if (teaserItem !== teaserItems[i]) {
@@ -27,29 +27,41 @@ function teaserMouseout(modal) {
     }
 }
 
+function handleMouseLeave() {
+    fadeOutModal(document.querySelectorAll('.teaser-item'));
+}
+
+function fadeOutModal(teaserItems) {
+    const modal = document.querySelector('.modal');
+
+    setTimeout(() => {
+
+        for (let i = 0; i < 3; i++) {
+            teaserItems[i].style.zIndex = '6';
+        }
+        modal.style.zIndex = '5';
+    }, 1000);
+    modal.style.opacity = '0';
+
+    // TODO - ask Valentin
+    // navBar.style.opacity = '1';
+    document.body.removeEventListener('mousemove', handleMouseMove);
+}
+
 function handleMouseMove(event) {
     const teaserItems = document.querySelectorAll('.teaser-item');
     const mouseY = event.clientY;
+    const mouseX = event.clientX;
 
-    const containerRect = teaserItems[0].getBoundingClientRect();
-    const containerTop = containerRect.top;
-    const containerBottom = containerRect.bottom;
+    const containerRectTop = teaserItems[0].getBoundingClientRect();
+    const containerRectBottom = teaserItems[2].getBoundingClientRect();
+    const containerTop = containerRectTop.top;
+    const containerBottom = containerRectBottom.bottom;
 
-    if (mouseY < containerTop || mouseY > containerBottom) {
-        const modal = document.querySelector('.modal');
+    const docWidth = document.documentElement.clientWidth;
 
-        setTimeout(() => {
-
-            for (let i = 0; i < 3; i++) {
-                teaserItems[i].style.zIndex = '6';
-            }
-            modal.style.zIndex = '5';
-        }, 1000);
-        modal.style.opacity = '0';
-
-        // TODO - ask Valentin
-        // navBar.style.opacity = '1';
-        document.body.removeEventListener('mousemove', handleMouseMove);
+    if (mouseY < containerTop || mouseY > containerBottom || mouseX < 0 || mouseX > docWidth ) {
+        fadeOutModal(teaserItems);
     }
 }
 
@@ -172,10 +184,48 @@ function fadeInAudio(teaserVideo, duration) {
     }, intervalTime);
 }
 
+function enableDummyModal() {
+    document.getElementById('dummyModal').style.display = 'block';
+}
+
+function getRectWithoutPadding(element) {
+    const computedStyle = window.getComputedStyle(element);
+    const rect = element.getBoundingClientRect();
+
+    const paddingTop = parseFloat(computedStyle.paddingTop);
+    const paddingRight = parseFloat(computedStyle.paddingRight);
+    const paddingBottom = parseFloat(computedStyle.paddingBottom);
+    const paddingLeft = parseFloat(computedStyle.paddingLeft);
+
+    return {
+        top: rect.top + paddingTop,
+        right: rect.right - paddingRight,
+        bottom: rect.bottom - paddingBottom,
+        left: rect.left + paddingLeft,
+        width: rect.width - (paddingLeft + paddingRight),
+        height: rect.height - (paddingTop + paddingBottom),
+    };
+}
+
+
+function disableDummyModal() {
+    document.getElementById('dummyModal').style.display = 'none';
+}
+
 function makeTeaserVidBig(teaserVid, teaserItem) {
     let teaserItems = document.querySelectorAll('.teaser-item');
     const navBar = document.querySelector('.navbar');
     document.body.removeEventListener('mousemove', handleMouseMove);
+    document.body.removeEventListener('mouseleave', handleMouseLeave);
+    document.body.style.overflow = 'hidden';
+
+    enableDummyModal();
+
+    setTimeout(() => disableDummyModal(), 1500)
+    setTimeout(() => document.body.addEventListener('click', createClickListener(teaserItem)), 1500);
+
+    // Add event listener for the 'Escape' key
+
 
 
     navBar.style.opacity = '0';
@@ -192,23 +242,15 @@ function makeTeaserVidBig(teaserVid, teaserItem) {
     }
 
     const teaserContainer = document.querySelector('.teaser-container')
-    const teaserRect = teaserItem.getBoundingClientRect();
-
-    // Calculate the new width and height
-    const oldWidth = teaserRect.width;
-    const oldHeight = teaserRect.height;
-
-    // Calculate the adjustment in top and left
-    let topAdjustment = (oldHeight - teaserRect.height) / 2;
-    let leftAdjustment = (oldWidth - teaserRect.width) / 2;
+    const teaserRect = getRectWithoutPadding(teaserItem);
 
     // Adjust the teaserTop and teaserLeft values
-    const teaserTop = teaserRect.top - topAdjustment;
-    const teaserLeft = teaserRect.left - leftAdjustment;
+    const teaserTop = teaserRect.top;
+    const teaserLeft = teaserRect.left;
 
     // Get dimensions of the teaser item
-    const teaserWidth = teaserItem.offsetWidth;
-    const teaserHeight = teaserItem.offsetHeight;
+    const teaserWidth = teaserRect.width;
+    const teaserHeight = teaserRect.height;
 
     teaserItem.style.width = teaserWidth + 'px';
     teaserItem.style.height = teaserHeight + 'px';
@@ -247,9 +289,6 @@ function makeTeaserVidBig(teaserVid, teaserItem) {
     modal.style.opacity = '1';
 
     document.body.appendChild(teaserItem);
-
-    teaserItem.addEventListener('click', () => muteUnmute(teaserItem, 0.5));
-    modal.addEventListener('click', createClickListener(teaserItem));
 }
 
 const createClickListener = (teaserItem) => {
@@ -259,7 +298,7 @@ const createClickListener = (teaserItem) => {
         makeTeaserVidInvisible(teaserItem);
 
         const modal = document.querySelector('.modal');
-        modal.removeEventListener('click', clickListener);
+        document.body.removeEventListener('click', clickListener);
     };
 
     // Return the listener function
@@ -269,7 +308,11 @@ const createClickListener = (teaserItem) => {
 let makeTeaserVidInvisible = function (teaserItem) {
     let teaserItems = document.querySelectorAll('.teaser-item');
     const modal = document.querySelector('.modal');
+    const navBar = document.querySelector('.navbar');
+
     modal.style.transition = 'opacity 2s ease';
+
+    setTimeout(() => document.body.addEventListener('mouseleave', handleMouseLeave), 2000);
 
     for (let i = 0; i < 3; i++) {
 
@@ -280,11 +323,16 @@ let makeTeaserVidInvisible = function (teaserItem) {
         }
     }
 
-    const firstTeaserItem = document.querySelector('.teaser-item');
+    let firstTeaserItem = teaserItems[0];
+
+    if (firstTeaserItem.classList.contains('dummy-div')) {
+        firstTeaserItem = teaserItems[1];
+    }
     const dummyDiv = document.querySelector('.dummy-div')
 
-    const newWidth = firstTeaserItem.offsetWidth;
-    const newHeight = firstTeaserItem.offsetHeight;
+    const rect = getRectWithoutPadding(firstTeaserItem);
+
+    console.log("Height: " + rect.height);
 
     // Set the keyframes dynamically based on the dummyDiv's position and size
     document.styleSheets[0].insertRule(`
@@ -298,14 +346,15 @@ let makeTeaserVidInvisible = function (teaserItem) {
                             height: 70vh;
                     }
                     to {
-                        width: ${newWidth}px;
-                        height: ${newHeight}px;
+                        width: ${rect.width}px;
+                        height: ${rect.height}px;
                         filter: blur(2px) brightness(90%) contrast(80%);
                     }
                 }
             `, 0);
 
     teaserItem.style.animation = 'videoTransition 2s forwards';
+    navBar.style.opacity = '1';
 
     let teaserVid = teaserItem.querySelector('.teaser-vid');
     if (parseFloat(teaserVid.volume) !== 0) {
@@ -319,7 +368,9 @@ let makeTeaserVidInvisible = function (teaserItem) {
         dummyDiv.appendChild(teaserVid);
         document.body.removeChild(teaserItem);
         dummyDiv.classList.remove('dummy-div');
+        dummyDiv.style = '';
         modal.style.zIndex = '5';
+        document.body.style.overflow = '';
     }, 2000);
 
     modal.style.opacity = '0';
@@ -327,3 +378,4 @@ let makeTeaserVidInvisible = function (teaserItem) {
 
 // Teaser videos are slowed by default
 document.addEventListener('DOMContentLoaded', slowDownTeaserVideos);
+document.body.addEventListener('mouseleave', handleMouseLeave);
