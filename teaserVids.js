@@ -1,6 +1,5 @@
 let lastMouseout = Date.now();
-
-let boundingRect;
+const navBar = document.querySelector('.navbar');
 
 function teaserMouseout(modal) {
     return function (event) {
@@ -372,3 +371,4 @@ let makeTeaserVidInvisible = function (teaserItem) {
 // Teaser videos are slowed by default
 document.addEventListener('DOMContentLoaded', slowDownTeaserVideos);
 document.body.addEventListener('mouseleave', handleMouseLeave);
+navBar.addEventListener('mouseleave', handleMouseLeave);
