@@ -48,6 +48,12 @@ function hideAnimatedElements(orientation) {
 function initialiseAnimation() {
     let orientation = getScreenOrientation();
 
+    if ('ontouchstart' in window && window.innerWidth < 700 && isAtTop()) {
+        hideAnimatedElements(orientation);
+        scheduleAnimation(orientation, 0);
+        return;
+    }
+
     if (isAtTop()) {
         hideAnimatedElements(orientation);
         loadCorrectVideo(orientation);

@@ -161,6 +161,7 @@ h1 {
     border-bottom: 1px solid #333;
     z-index: 99999;
     transition: opacity 1.2s ease;
+    opacity: 0;
     align-items: center;
 }
 
@@ -356,9 +357,30 @@ h1 {
     }
 }
 
+@media (orientation: landscape) and (max-width: 700px){
+    .container {
+        top: -30vh;
+        height: 75vh;
+    }
+
+    #teasers {
+        display: none;
+    }
+}
+
+
 @media (max-width: 500px) {
     #teasers {
         display: none;
+    }
+
+    .cover {
+        top: 50vh;
+    }
+
+    .container {
+        height: 75vh;
+        justify-content: flex-start;
     }
 
     .navbar a {
