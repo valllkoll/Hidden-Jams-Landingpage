@@ -67,7 +67,6 @@ function handleMouseMove(event) {
 
 function teaserMouseover(modal) {
     return function (event) {
-        const navBar = document.querySelector('.navbar');
         const teaserItem = event.target.closest('.teaser-item');
         const teaserVid = event.target.closest('.teaser-vid');
 
@@ -76,9 +75,6 @@ function teaserMouseover(modal) {
             modal.style.opacity = '0.9';
             modal.style.zIndex = '9998';
             modal.style.transition = 'opacity 0.9s ease';
-
-            // TODO - ask valentin
-            // navBar.style.opacity = '0%';
 
             let teaserItems = document.querySelectorAll('.teaser-item');
 
@@ -223,10 +219,6 @@ function makeTeaserVidBig(teaserVid, teaserItem) {
 
     setTimeout(() => disableDummyModal(), 1500)
     setTimeout(() => document.body.addEventListener('click', createClickListener(teaserItem)), 1500);
-
-    // Add event listener for the 'Escape' key
-
-
 
     navBar.style.opacity = '0';
 
