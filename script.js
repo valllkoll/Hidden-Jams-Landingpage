@@ -24,29 +24,25 @@ function hideVideo() {
     document.getElementById('landingpage-video').style.display = "none";
 }
 
-function hideAnimatedElements(orientation) {
+function hideAnimatedElements() {
     let hiddenText = document.querySelector('#hidden-text');
     let jamsText = document.querySelector('#jams-text');
     let imageContainer = document.querySelector('.image-container');
+    let navBar = document.querySelector('.navbar');
 
+    hiddenText.style.position = 'absolute';
     hiddenText.style.color = 'transparent';
+    jamsText.style.position = 'absolute';
     jamsText.style.color = 'transparent';
-
-    if (orientation === ORIENTATION.LANDSCAPE) {
-        jamsText.style.transform = 'translateX(-40%)';
-        hiddenText.style.transform = 'translateX(45%)';
-    } else {
-        jamsText.style.transform = 'translateY(-60%)';
-        hiddenText.style.transform = 'translateY(33%)';
-    }
     imageContainer.style.display = 'none';
+    navBar.style.opacity = '0';
 }
 
 function initialiseAnimation() {
     let orientation = getScreenOrientation();
 
     if (isAtTop()) {
-        hideAnimatedElements(orientation);
+        hideAnimatedElements();
         loadCorrectVideo(orientation);
         scheduleAnimation(orientation, 1000);
     } else {
@@ -69,8 +65,6 @@ function loadCorrectVideo(orientation) {
         videoSourceElement.src = 'media/landingpage-intro-hochkant.mp4';
     }
 
-    decideFullScreenSettings(videoElement);
-
     videoElement.style.display = 'block';
 
     // Reload the video to apply the changes
@@ -81,26 +75,6 @@ function loadCorrectVideo(orientation) {
         console.log("HIDING THIS: ");
         console.log(videoElement);
     })
-}
-
-function decideFullScreenSettings(videoElement, orientation) {
-    const screenAspectRatio = window.innerWidth / window.innerHeight;
-    let videoAspectRatio;
-    if (orientation === ORIENTATION.LANDSCAPE) {
-        videoAspectRatio = 1920 / 1080;
-    } else {
-        videoAspectRatio = 1080 / 1280;
-    }
-
-    if (screenAspectRatio > videoAspectRatio) {
-        // Screen is wider/thinner than the video, set height to 100%
-        videoElement.style.height = 'auto';
-        videoElement.style.width = '100%';
-    } else {
-        // Screen is taller/wider than the video, set width to 100%
-        videoElement.style.height = '100%';
-        videoElement.style.width = 'auto';
-    }
 }
 
 function scheduleAnimation(screenOrientation, timeToWait) {
@@ -132,6 +106,7 @@ function addAnimations(orientation) {
     addHiddenSlideAnimation(hiddenText, orientation);
     addJamsSlideAnimation(jamsText, orientation);
     scheduleBottomCoverAnimation(bottomImageCover, bottomImage);
+    scheduleNavbarAppearance();
     scheduleScrollingEnable();
 }
 
@@ -193,6 +168,12 @@ function scheduleBottomCoverAnimation(bottomImageCover, bottomImage) {
         LOGO_ANIMATION_PARAMETERS.IMAGE_COVER_DELAY * 1000)
 }
 
+function scheduleNavbarAppearance() {
+    setTimeout(() =>
+            makeNavbarVisible(),
+        LOGO_ANIMATION_PARAMETERS.NAVBAR_DELAY * 1000)
+}
+
 function scheduleScrollingEnable() {
     const body = document.querySelector("body");
     let scrollEnableDelay = (LOGO_ANIMATION_PARAMETERS.JAMS_ANIMATION_LENGTH +
@@ -201,6 +182,13 @@ function scheduleScrollingEnable() {
     setTimeout(() => body.style.overflow = "auto",
         scrollEnableDelay);
 
+}
+
+function makeNavbarVisible() {
+    let navbar = document.querySelector('.navbar');
+
+    navbar.style.display = 'flex';
+    navbar.style.animation = 'fadeIn 2s forwards';
 }
 
 function addBottomCoverAnimation(bottomImageCover, bottomImage) {
