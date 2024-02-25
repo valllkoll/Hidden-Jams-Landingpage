@@ -4,21 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="teaserVids.css">
     <title>Hidden Jams LP</title>
     <script type="module" src="script.js"></script>
     <script type="module" src="constants.js"></script>
+    <script type="module" src="teaserVideos.js"></script>
 </head>
 <body>
 
+<div class="modal"></div>
+
 <div class="cover"></div>
 
-<video id="landingpage-video" autoplay muted playsinline>
-    <source id="landingpage-source" type="video/mp4">
-</video>
+<div class="navbar">
+    <a href="#" class="home">Home</a>
+    <div class="separator"></div>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+    <div class="end-separator"></div>
+</div>
 
 <div class="page-content">
-
     <div class="container">
+        <video id="landingpage-video" width="100%" height="auto" autoplay muted playsinline>
+            <source id="landingpage-source" type="video/mp4">
+        </video>
         <div id="hidden-text" class="blur title-text">HIDDEN</div>
         <div id="jams-text" class="title-text">JAMS</div>
     </div>
@@ -38,6 +49,47 @@
             </div>
         </div>
     </div>
+
+    <div class="teaser-container">
+
+        <div class="teaser-item">
+            <video id="teaser1" class="teaser-vid" preload="auto" autoplay loop muted>
+                <source id="teaser1-source" src="media/teaser1.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="teaser-item">
+            <video id="teaser2" class="teaser-vid" preload="auto" autoplay loop muted>
+                <source id="teaser2-source" src="media/teaser2.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="teaser-item">
+            <video id="teaser3" class="teaser-vid" preload="auto" autoplay loop muted>
+                <source id="teaser3-source" src="media/teaser3.mp4" type="video/mp4">
+            </video>
+        </div>
     </div>
+
+    <div class="info-segment-2">
+        <div class="info-wrapper">
+            <div class="big-font">Mehr als nur Musikvideos. Ein innovatives Förderprogramm
+                von und für junge Profis der norddeutschen Kreativlandschaft.
+            </div>
+            <div class="line-wrapper"></div>
+            <div class="small-font">
+                <p>Hannovers Hidden Jams vereinen dutzende junge Kreative mit einer Idee:
+                    Einen gemeinsamem Ort zu schaffen, an dem sie sich selbstverwirklichen
+                    und zusammen auf höchstem Niveau arbeiten und lernen können.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-video-container">
+    </div>
+
+    <div id="dummyModal">
+    </div>
+</div>
+
 </body>
 </html>

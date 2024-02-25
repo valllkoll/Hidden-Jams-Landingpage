@@ -1,0 +1,16 @@
+4. Make videos look nice for ipad and for phone (give an x on the side)
+
+8. Make escape exit the kino mode
+
+9.
+
+
+----------
+OPTIONAL
+----------
+
+4. Add info segment text left side
+
+5. Parallax-effekt für team
+
+6. Kontakt-Aufruf
