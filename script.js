@@ -3,15 +3,16 @@
 import {LOGO_ANIMATION_PARAMETERS} from "./constants.js";
 import {ORIENTATION} from "./constants.js";
 
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+
 // Initializes animation once document is loaded
 document.addEventListener('DOMContentLoaded', initialiseAnimation);
 
-if (isAtTop()) {
-    document.querySelector('body').style.overflow = "hidden";
-}
-
 function isAtTop() {
-    return window.scrollY === 0;
+    return window.scrollY <= 0;
 }
 
 
@@ -51,19 +52,24 @@ function hideAnimatedElements(orientation) {
 function initialiseAnimation() {
     let orientation = getScreenOrientation();
 
+    window.scrollTo(0, 0);
+
     if ('ontouchstart' in window && window.innerWidth < 700 && isAtTop()) {
         hideAnimatedElements(orientation);
         scheduleAnimation(orientation, 0);
         return;
     }
 
-    if (isAtTop()) {
-        hideAnimatedElements(orientation);
-        loadCorrectVideo(orientation);
-        scheduleAnimation(orientation, 1000);
-    } else {
-        hideVideo();
-    }
+    document.querySelector('body').style.overflow = "hidden";
+
+    hideAnimatedElements(orientation);
+    loadCorrectVideo(orientation);
+    scheduleAnimation(orientation, 1000);
+
+    // For direct page load if needed later
+    //        hideVideo();
+    //        const pageContent = document.querySelector('.page-content');
+    //        pageContent.style.display = 'flex';
 }
 
 function getScreenOrientation() {
@@ -98,6 +104,10 @@ function scheduleAnimation(screenOrientation, timeToWait) {
 }
 
 let fireAnimation = function (orientation) {
+    const pageContent = document.querySelector('.page-content');
+
+    pageContent.style.display = 'flex';
+
     const videoElement = document.getElementById('landingpage-video');
 
     // Wait the duration of the video minus 1.7 seconds

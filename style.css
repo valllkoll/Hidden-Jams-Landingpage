@@ -20,7 +20,7 @@ body {
 .page-content {
     max-width: 100vw;
     box-sizing: border-box;
-    display: flex;
+    display: none;
     flex-wrap: wrap;
 }
 
@@ -125,7 +125,6 @@ body {
 }
 
 
-
 h1 {
     font-size: 2.5em;
 }
@@ -163,6 +162,33 @@ h1 {
     transition: opacity 1.2s ease;
     opacity: 0;
     align-items: center;
+}
+
+.impressum {
+    display: flex;
+    background-color: lightgray;
+    width: 100%;
+    top: 0;
+    transition: opacity 1.2s ease;
+    align-items: center;
+    justify-content: flex-start;
+    z-index: 1000;
+    padding: 2vh;
+}
+
+.impressum-item {
+    color: #333;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+    border-bottom: 1px solid transparent;
+    padding-top: 18px;
+    padding-bottom: 18px;
+}
+
+.impressum-item:hover {
+    border-color: #333;
+    color: #9d9494;
 }
 
 .logo-container {
@@ -329,6 +355,7 @@ h1 {
         margin-right: auto;
         width: 80vw;
     }
+
     .big-font {
         font-size: 1.5em;
     }
@@ -338,18 +365,20 @@ h1 {
     }
 }
 
-@media (orientation: portrait){
+@media (orientation: portrait) {
     .container {
         flex-wrap: wrap;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
+
     #jams-text {
         letter-spacing: 23px;
         text-align: center;
         position: relative;
     }
+
     #hidden-text {
         text-align: center;
         display: block;
@@ -357,7 +386,7 @@ h1 {
     }
 }
 
-@media (orientation: landscape) and (max-width: 700px){
+@media (orientation: landscape) and (max-width: 700px) {
     .container {
         top: -30vh;
         height: 75vh;
