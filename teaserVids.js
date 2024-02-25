@@ -359,11 +359,11 @@ let makeTeaserVidInvisible = function (teaserItem) {
 
     let teaserVid = teaserItem.querySelector('.teaser-vid');
     if (parseFloat(teaserVid.volume) !== 0) {
-        muteUnmute(teaserItem, 0.5);
+        muteUnmute(teaserItem, 2);
     }
     setTimeout(() => {
         teaserVid.muted = true;
-    }, 1000);
+    }, 2000);
 
     setTimeout(() => {
         dummyDiv.appendChild(teaserVid);
