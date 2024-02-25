@@ -1,5 +1,6 @@
 let lastMouseout = Date.now();
 const navBar = document.querySelector('.navbar');
+let animating = false;
 
 function teaserMouseout(modal) {
     return function (event) {
@@ -27,18 +28,21 @@ function teaserMouseout(modal) {
 }
 
 function handleMouseLeave() {
-    fadeOutModal(document.querySelectorAll('.teaser-item'));
+    if (!animating) {
+        fadeOutModal(document.querySelectorAll('.teaser-item'));
+    }
 }
 
 function fadeOutModal(teaserItems) {
     const modal = document.querySelector('.modal');
 
     setTimeout(() => {
-
+        if (!animating) {
         for (let i = 0; i < 3; i++) {
             teaserItems[i].style.zIndex = '6';
         }
         modal.style.zIndex = '5';
+        }
     }, 1000);
     modal.style.opacity = '0';
 
@@ -208,10 +212,13 @@ function disableDummyModal() {
 }
 
 function makeTeaserVidBig(teaserVid, teaserItem) {
+    animating = true;
     let teaserItems = document.querySelectorAll('.teaser-item');
     const navBar = document.querySelector('.navbar');
+
     document.body.removeEventListener('mousemove', handleMouseMove);
     document.body.removeEventListener('mouseleave', handleMouseLeave);
+    window.removeEventListener('scroll', handleMouseLeave);
     document.body.style.overflow = 'hidden';
 
     enableDummyModal();
@@ -254,7 +261,6 @@ function makeTeaserVidBig(teaserVid, teaserItem) {
     teaserItem.style.opacity = '1';
     teaserItem.style.overflow = 'visible';
 
-
     // Set dimensions of the replacement video
     teaserVid.style.objectFit = 'cover';
     teaserVid.style.height = '100%';
@@ -277,8 +283,10 @@ function makeTeaserVidBig(teaserVid, teaserItem) {
     teaserContainer.replaceChild(dummyDiv, teaserItem);
 
     const modal = document.querySelector('.modal');
-    modal.style.zIndex = '9998';
     modal.style.opacity = '1';
+
+    setTimeout(() => modal.style.zIndex = '10', 1000)
+    setTimeout(() => animating = false, 1000)
 
     document.body.appendChild(teaserItem);
 }
@@ -305,6 +313,7 @@ let makeTeaserVidInvisible = function (teaserItem) {
     modal.style.transition = 'opacity 2s ease';
 
     setTimeout(() => document.body.addEventListener('mouseleave', handleMouseLeave), 2000);
+    setTimeout(() => window.addEventListener('scroll', handleMouseLeave), 3000);
 
     for (let i = 0; i < 3; i++) {
 
@@ -371,3 +380,6 @@ let makeTeaserVidInvisible = function (teaserItem) {
 // Teaser videos are slowed by default
 document.addEventListener('DOMContentLoaded', slowDownTeaserVideos);
 document.body.addEventListener('mouseleave', handleMouseLeave);
+
+// TODO - make this work:
+window.addEventListener('scroll', handleMouseLeave);
