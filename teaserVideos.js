@@ -9,7 +9,6 @@ function teaserMouseout(modal) {
         if (teaserItem && teaserVid) {
             // Handle mouseout on teaser video
             teaserItem.style.transform = 'scale(1)';
-            teaserVid.playbackRate = 0.6;
             teaserItem.width = '30%';
             for (let i = 0; i < 3; i++) {
                 if (teaserItem !== teaserItems[i]) {
@@ -23,8 +22,6 @@ function teaserMouseout(modal) {
             lastMouseout = Date.now();
         }
 
-        // Get the mouse coordinates
-        const mouseX = event.clientX;
         const mouseY = event.clientY;
 
         // Get the position of the container
@@ -54,9 +51,9 @@ function teaserMouseover(modal) {
         if (teaserItem && teaserVid) {
             // Handle mouseover on teaser video
             // teaserItem.style.transform = 'scale(1.2)';
-            teaserVid.playbackRate = 1;
             modal.style.opacity = '0.9';
             modal.style.zIndex = '9998';
+            modal.style.transition = 'opacity 0.9s ease';
 
             let teaserItems = document.querySelectorAll('.teaser-item');
 
@@ -171,8 +168,9 @@ function makeTeaserVidBig(teaserVid, teaserItem) {
     for (let i = 0; i < 3; i++) {
 
         if (teaserItem !== teaserItems[i]) {
+            teaserItems[i].style.opacity = '0';
+
             setTimeout(() => {
-                teaserItems[i].style.opacity = '0';
                 teaserItems[i].style.zIndex = '5';
             }, 500);
         }
@@ -255,6 +253,8 @@ const createClickListener = (teaserItem) => {
 
 let makeTeaserVidInvisible = function (teaserItem) {
     let teaserItems = document.querySelectorAll('.teaser-item');
+    const modal = document.querySelector('.modal');
+    modal.style.transition = 'opacity 2s ease';
 
     for (let i = 0; i < 3; i++) {
 
@@ -307,9 +307,7 @@ let makeTeaserVidInvisible = function (teaserItem) {
         modal.style.zIndex = '5';
     }, 2000);
 
-    const modal = document.querySelector('.modal');
     modal.style.opacity = '0';
-    modal.style.transition = 'opacity 2s ease';
 };
 
 // Teaser videos are slowed by default

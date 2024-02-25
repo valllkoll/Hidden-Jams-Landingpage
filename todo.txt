@@ -1,5 +1,4 @@
-3. Audio should fade in when muting/unmuting (and not break the computer)
-    - possibly use audio context? Initialize when clicking?
+1. Mouseout should happen even when mouse is between videos and goes up&down
 
 4. Make videos look nice for ipad and for phone (give an x on the side)
 
@@ -7,9 +6,16 @@
 
 6. Give the videos a mute/unmute button at the bottom (flexbox on video container)
 
-7.
+7. Prevent scrolling during video animation (when it goes to center)
+
+8. Make escape exit the kino mode
+
+9.
 
 
+----------
+OPTIONAL
+----------
 
 4. Add info segment text left side
 

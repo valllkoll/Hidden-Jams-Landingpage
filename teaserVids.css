@@ -24,11 +24,10 @@
     background-color: lightgray;
     padding-top: 5%;
     padding-bottom: 5%;
-    border: 2px solid blue;
 }
 
 .teaser-item {
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, brightness 1.5s ease;
+    transition: opacity 1s ease-in-out, transform 0.5s ease-in-out, brightness 1.5s ease;
     width: 22%;
     max-width: 22%;
     height: 55vh;
