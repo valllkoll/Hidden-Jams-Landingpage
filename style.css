@@ -23,7 +23,11 @@ body {
 .title-image {
     max-height: 60%;
     width: auto;
-    border-radius: 10px;
+    border-radius: 10px; /* Add a border-radius for rounded corners */
+}
+
+#landingpage-video {
+    display: none;
 }
 
 /* For WebKit (Chrome, Safari) */
@@ -99,26 +103,26 @@ body {
 }
 
 .big-font {
-font-size: 2.7em;
-margin-bottom: 10px;
+    font-size: 2.7em;
+    margin-bottom: 10px;
 }
 
 .small-font {
-font-size: 1.5em;
+    font-size: 1.5em;
 }
 
 .line-wrapper {
-position: relative;
-width: 100%;
-height: 1px;
-margin: 4vh 0;
-background-color: #f5f5f5;
-transition: width 0.5s ease;
+    position: relative;
+    width: 100%;
+    height: 1px;
+    margin: 4vh 0;
+    background-color: #f5f5f5;
+    transition: width 0.5s ease;
 }
 
 /* Scroll-triggered animation for the line */
 .scroll-trigger .line {
-width: 100%;
+    width: 100%;
 }
 
 
@@ -197,12 +201,12 @@ h1 {
     opacity: 0;
     transition: opacity 2s ease;
     margin-bottom: 20px;
-  }
+}
 
-  .visible-element {
+.visible-element {
     opacity: 1;
     transition: opacity 2s ease;
-  }
+}
 
 
 /*animations*/
@@ -308,19 +312,19 @@ h1 {
     }
     .info-segment {
         padding: 10px;
-      }
-  
-      .info-wrapper {
-          margin-right: auto;
-          width: 80vw;
-      }
-      .big-font {
+    }
+
+    .info-wrapper {
+        margin-right: auto;
+        width: 80vw;
+    }
+    .big-font {
         font-size: 1.5em;
-      }
-  
-      .small-font {
+    }
+
+    .small-font {
         font-size: 0.9em;
-      }
+    }
 }
 
 @media (orientation: portrait) and (min-width: 700px) {
