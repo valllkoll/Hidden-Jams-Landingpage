@@ -21,7 +21,10 @@ window.addEventListener('scroll', handleScroll);
 window.addEventListener('resize', handleScroll);
 
 function hideVideo() {
+    let navBar = document.querySelector('.navbar');
+
     document.getElementById('landingpage-video').style.display = "none";
+    navBar.style.opacity = '1';
 }
 
 function hideAnimatedElements(orientation) {
