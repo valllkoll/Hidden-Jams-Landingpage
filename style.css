@@ -150,7 +150,7 @@ h1 {
 }
 
 .navbar {
-    display: flex;
+    display: none;
     background-color: #f5f5f5;
     padding: 15px;
     position: fixed;
