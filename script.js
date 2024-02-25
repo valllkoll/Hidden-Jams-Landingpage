@@ -222,5 +222,3 @@ function handleScroll() {
     toggleVisibility('element1', 200);
     setTimeout(() => toggleVisibility('element2', 100), 500);
 }
-
-
