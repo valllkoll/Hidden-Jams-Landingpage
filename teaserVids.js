@@ -1,13 +1,11 @@
 let lastMouseout = Date.now();
-const navBar = document.querySelector('.navbar');
 let animating = false;
 
-function teaserMouseout(modal) {
+function teaserMouseout() {
     return function (event) {
         const teaserItem = event.target.closest('.teaser-item');
         const teaserVid = event.target.closest('.teaser-vid');
         const teaserItems = document.querySelectorAll('.teaser-item');
-        const navBar = document.querySelector('.navbar');
 
         if (teaserItem && teaserVid) {
             teaserItem.width = '30%';
@@ -297,7 +295,6 @@ const createClickListener = (teaserItem) => {
         // Your code to handle the click event goes here
         makeTeaserVidInvisible(teaserItem);
 
-        const modal = document.querySelector('.modal');
         document.body.removeEventListener('click', clickListener);
     };
 
