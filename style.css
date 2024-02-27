@@ -186,6 +186,7 @@ h1 {
 
 .impressum {
     display: flex;
+    flex-wrap: wrap;
     background-color: lightgray;
     width: 100%;
     top: 0;
@@ -204,6 +205,13 @@ h1 {
     border-bottom: 1px solid transparent;
     padding-top: 18px;
     padding-bottom: 18px;
+}
+
+.impressum .line-wrapper {
+    width: 70%;
+    margin-right: 15%;
+    margin-left: 7%;
+    justify-self: center;
 }
 
 .impressum-item:hover {
@@ -423,6 +431,10 @@ h1 {
         display: none;
     }
 
+    #our-projects {
+        display: none;
+    }
+
     .info-segment-2 {
         background-color: lightgray;
         border-bottom: 1px solid #333;
@@ -451,5 +463,14 @@ h1 {
 
     .logo {
         height: 30px;
+    }
+
+    .impressum {
+        background-color: #333;
+    }
+
+    .impressum-item {
+        color: #f5f5f5;
+        font-size: 12px;
     }
 }
