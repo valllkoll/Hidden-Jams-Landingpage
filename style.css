@@ -101,6 +101,17 @@ body {
     margin: 7vh 15vw 7vh auto;
 }
 
+.info-wrapper-2 {
+    color: #f5f5f5;
+    text-align: left;
+    width: 70vw;
+    max-width: 800px;
+    align-self: flex-end;
+    padding: 20px;
+    position: relative;
+    margin: 7vh 15vw 7vh auto;
+}
+
 .big-font {
     font-size: 2.7em;
     margin-bottom: 10px;
@@ -111,6 +122,15 @@ body {
 }
 
 .line-wrapper {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    margin: 4vh 0;
+    background-color: #f5f5f5;
+    transition: width 0.5s ease;
+}
+
+.line-wrapper-2 {
     position: relative;
     width: 100%;
     height: 1px;
@@ -401,6 +421,19 @@ h1 {
 @media (max-width: 500px) {
     #teasers {
         display: none;
+    }
+
+    .info-segment-2 {
+        background-color: lightgray;
+        border-bottom: 1px solid #333;
+    }
+
+    .info-wrapper-2 {
+        color: #333;
+    }
+
+    .line-wrapper-2 {
+        background-color: #333;
     }
 
     .cover {
