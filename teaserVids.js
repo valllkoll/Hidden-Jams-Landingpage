@@ -31,6 +31,16 @@ function handleMouseLeave() {
     }
 }
 
+function handleMouseScroll() {
+
+    // optional functionality for scrolling to brighten screen
+
+    // if (!animating) {
+    //     fadeOutModal(document.querySelectorAll('.teaser-item'));
+    // }
+}
+
+
 function fadeOutModal(teaserItems) {
     const modal = document.querySelector('.modal');
 
@@ -71,6 +81,7 @@ function teaserMouseover(modal) {
         const teaserItem = event.target.closest('.teaser-item');
         const teaserVid = event.target.closest('.teaser-vid');
 
+
         if (teaserItem && teaserVid) {
             // Handle mouseover on teaser video
             modal.style.opacity = '0.9';
@@ -78,6 +89,7 @@ function teaserMouseover(modal) {
             modal.style.transition = 'opacity 0.9s ease';
 
             let teaserItems = document.querySelectorAll('.teaser-item');
+            const teaserTitles = document.querySelectorAll('.teaser-title');
 
             for (let i = 0; i < 3; i++) {
                 teaserItems[i].style.zIndex = '9999';
@@ -89,9 +101,11 @@ function teaserMouseover(modal) {
                         teaserItems[i].style.animation = '';
                         teaserItems[i].style.animation = 'dimDarkVid 0.7s forwards';
                     }
+                    teaserTitles[i].style.filter = 'blur(2px)';
+                } else {
+                    teaserTitles[i].style.filter = 'none';
                 }
             }
-
             if (Date.now() - lastMouseout < 300) {
                 teaserItem.style.animation = 'sharpenDarkVideo 0.6s forwards';
             } else {
@@ -212,11 +226,12 @@ function disableDummyModal() {
 function makeTeaserVidBig(teaserVid, teaserItem) {
     animating = true;
     let teaserItems = document.querySelectorAll('.teaser-item');
+    let teaserTitles = document.querySelectorAll('.teaser-title');
     const navBar = document.querySelector('.navbar');
 
     document.body.removeEventListener('mousemove', handleMouseMove);
     document.body.removeEventListener('mouseleave', handleMouseLeave);
-    window.removeEventListener('scroll', handleMouseLeave);
+    window.removeEventListener('scroll', handleMouseScroll);
     document.body.style.overflow = 'hidden';
 
     enableDummyModal();
@@ -237,6 +252,8 @@ function makeTeaserVidBig(teaserVid, teaserItem) {
             }, 500);
         }
     }
+
+    teaserTitles.forEach(tt => tt.style.opacity = '0');
 
     const teaserContainer = document.querySelector('.teaser-container')
     const teaserRect = getRectWithoutPadding(teaserItem);
@@ -278,7 +295,9 @@ function makeTeaserVidBig(teaserVid, teaserItem) {
 
     dummyDiv.style.width = teaserItem.width;
 
-    teaserContainer.replaceChild(dummyDiv, teaserItem);
+    // TODO - figure out this inheritance problem
+    let teaserItemContainer = teaserItem.parentElement;
+    teaserItemContainer.replaceChild(dummyDiv, teaserItem);
 
     const modal = document.querySelector('.modal');
     modal.style.opacity = '1';
@@ -304,13 +323,14 @@ const createClickListener = (teaserItem) => {
 
 let makeTeaserVidInvisible = function (teaserItem) {
     let teaserItems = document.querySelectorAll('.teaser-item');
+    let teaserTitles = document.querySelectorAll('.teaser-title');
     const modal = document.querySelector('.modal');
     const navBar = document.querySelector('.navbar');
 
     modal.style.transition = 'opacity 2s ease';
 
     setTimeout(() => document.body.addEventListener('mouseleave', handleMouseLeave), 2000);
-    setTimeout(() => window.addEventListener('scroll', handleMouseLeave), 3000);
+    setTimeout(() => window.addEventListener('scroll', handleMouseScroll), 3000);
 
     for (let i = 0; i < 3; i++) {
 
@@ -369,6 +389,7 @@ let makeTeaserVidInvisible = function (teaserItem) {
         dummyDiv.style = '';
         modal.style.zIndex = '5';
         document.body.style.overflow = '';
+        teaserTitles.forEach(tt => tt.style.opacity = '1');
     }, 2000);
 
     modal.style.opacity = '0';
@@ -378,5 +399,4 @@ let makeTeaserVidInvisible = function (teaserItem) {
 document.addEventListener('DOMContentLoaded', slowDownTeaserVideos);
 document.body.addEventListener('mouseleave', handleMouseLeave);
 
-// TODO - make this work:
-window.addEventListener('scroll', handleMouseLeave);
+window.addEventListener('scroll', handleMouseScroll);

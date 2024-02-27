@@ -63,7 +63,7 @@ function initialiseAnimation() {
     document.querySelector('body').style.overflow = "hidden";
 
     hideAnimatedElements(orientation);
-    loadCorrectVideo(orientation);
+    // loadCorrectVideo(orientation);
     scheduleAnimation(orientation, 1000);
 
     // For direct page load if needed later

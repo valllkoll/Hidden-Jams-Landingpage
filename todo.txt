@@ -1,8 +1,9 @@
-4. Make videos look nice for ipad and for phone (give an x on the side)
+1. Make escape exit the kino mode
 
-8. Make escape exit the kino mode
-
-9.
+2. Add teaser vid titles
+    - Make invisible until mouse over
+    - Make animation still work - Problem with the DOM structure currently
+    - Make disappear when the video gets big (only use the video and not the teaser item?)
 
 
 ----------

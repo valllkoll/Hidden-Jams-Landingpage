@@ -28,27 +28,34 @@
     width: 100%;
 }
 
-.teaser-item {
-    transition: opacity 1s ease-in-out, transform 0.5s ease-in-out, brightness 1.5s ease;
-    width: 22%;
+.teaser-item-container {
     min-width: 300px;
     min-height: 500px;
+    width: 22%;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+}
+
+.teaser-item {
+    transition: opacity 1s ease-in-out, transform 0.5s ease-in-out, brightness 1.5s ease;
+
     height: 55vh;
     z-index: 6;
     cursor: pointer;
     filter: blur(2px) brightness(90%) contrast(80%);
     overflow: hidden;
     padding: 3%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
 }
 
 .teaser-title {
     padding-bottom: 30px;
     font-size: 1.5em;
-    color: whitesmoke;
-    filter: none;
+    color: lightgray;
+    z-index: 10000;
+    filter: blur(2px);
+    transition: opacity 1s ease;
 }
 
 .teaser-vid {
