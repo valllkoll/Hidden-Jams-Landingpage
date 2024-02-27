@@ -228,8 +228,8 @@ function addBottomCoverAnimation(bottomImageCover, bottomImage) {
 // SCROLL REVEAL
 
 function toggleVisibility(elementId, threshold) {
-    var element = document.getElementById(elementId);
-    var rect = element.getBoundingClientRect();
+    const element = document.getElementById(elementId);
+    const rect = element.getBoundingClientRect();
 
     if (rect.top < window.innerHeight - threshold) {
         element.classList.add('visible-element');
@@ -241,6 +241,6 @@ function handleScroll() {
     toggleVisibility('element1', 200);
     setTimeout(() => toggleVisibility('element2', 100), 500);
 
-    toggleVisibility('element1', 200);
-    setTimeout(() => toggleVisibility('element2', 100), 500);
+    toggleVisibility('element3', 200);
+    setTimeout(() => toggleVisibility('element4', 100), 500);
 }

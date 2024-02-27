@@ -106,10 +106,11 @@ body {
     text-align: left;
     width: 70vw;
     max-width: 800px;
-    align-self: flex-end;
     padding: 20px;
     position: relative;
-    margin: 7vh 15vw 7vh auto;
+    margin: 7vh auto 7vh 15vw;
+    display: flex;
+    flex-direction: column;
 }
 
 .big-font {
