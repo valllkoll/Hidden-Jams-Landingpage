@@ -221,11 +221,16 @@ h1 {
 }
 
 .logo-container {
+    height: 80px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo {
-    height: 50px;
-    margin-left: 15px;
+    pointer-events: none;
+    width: 280px;
 }
 
 .navbar .separator {
@@ -462,8 +467,12 @@ h1 {
         font-size: 14px;
     }
 
+    .logo-container {
+        height: 60px;
+        width: 150px;
+    }
+
     .logo {
-        height: 30px;
     }
 
     .impressum {
