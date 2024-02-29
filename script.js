@@ -39,7 +39,7 @@ function hideAnimatedElements(orientation) {
 
     if (orientation === ORIENTATION.LANDSCAPE) {
         jamsText.style.transform = 'translateX(-40%)';
-        hiddenText.style.transform = 'translateX(45%)';
+        hiddenText.style.transform = 'translateX(30%)';
     } else {
         jamsText.style.transform = 'translateY(-60%)';
         hiddenText.style.transform = 'translateY(33%)';

@@ -1,9 +1,6 @@
 1. Make escape exit the kino mode
 
-2. Add teaser vid titles
-    - Make invisible until mouse over
-    - Make animation still work - Problem with the DOM structure currently
-    - Make disappear when the video gets big (only use the video and not the teaser item?)
+2. Make Impressum act correctly in terms of z-index, etc.
 
 
 ----------
