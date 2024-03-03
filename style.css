@@ -195,6 +195,7 @@ h1 {
     align-items: center;
     justify-content: flex-start;
     padding: 2vh;
+    z-index: 10;
 }
 
 .impressum-item {
