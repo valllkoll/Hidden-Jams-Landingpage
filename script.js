@@ -49,7 +49,7 @@ function hideAnimatedElements(orientation) {
     navBar.style.opacity = '0';
 }
 
-function initialiseAnimation() {
+async function initialiseAnimation() {
     let orientation = getScreenOrientation();
 
     window.scrollTo(0, 0);
@@ -63,7 +63,7 @@ function initialiseAnimation() {
     document.querySelector('body').style.overflow = "hidden";
 
     hideAnimatedElements(orientation);
-    loadCorrectVideo(orientation);
+    await loadCorrectVideo(orientation);
     scheduleAnimation(orientation, 1000);
 
     // For direct page load if needed later
@@ -76,7 +76,7 @@ function getScreenOrientation() {
     return window.innerWidth > window.innerHeight ? ORIENTATION.LANDSCAPE : ORIENTATION.PORTRAIT;
 }
 
-function loadCorrectVideo(orientation) {
+async function loadCorrectVideo(orientation) {
     const videoElement = document.getElementById('landingpage-video');
     const videoSourceElement = document.getElementById('landingpage-source');
 
@@ -90,11 +90,12 @@ function loadCorrectVideo(orientation) {
     videoElement.style.display = 'block';
 
     // Reload the video to apply the changes
-    videoElement.load();
+    await videoElement.load();
+
+    videoElement.play();
 
     videoElement.addEventListener('ended', () => {
         videoElement.style.display = 'none';
-        console.log("HIDING THIS: ");
         console.log(videoElement);
     })
 }
